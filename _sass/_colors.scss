@@ -1,0 +1,29 @@
+$mastilnitsata-dark: #1e1e1e; /* dark gray */
+$mastilnitsata-light: #F0F8EA; /* offwhite */
+
+/*Menu and headers*/
+$sticky-menu-background: $mastilnitsata-dark;
+
+/* Footer */
+$footer-text: rgba(0,0,0,.44);
+$footer-background: white;
+$footer-top-border: rgba(0,0,0,.05);
+
+/* General */
+$site-background: $mastilnitsata-light;
+
+$theme-colors: (
+    "dark": $mastilnitsata-dark
+);
+
+$navbar-light-active-color: $mastilnitsata-dark;
+$navbar-light-color: $mastilnitsata-dark;
+$navbar-light-brand-color: $mastilnitsata-dark;
+
+/* Palette */
+$mastilnitsata-orange: #DD614A;
+$mastilnitsata-bright-orange: #F0B67F;
+$mastilnitsata-offwhite: #F0F8EA;
+$mastilnitsata-dark-grey: #39434B;
+$mastilnitsata-light-grey: #706563;
+$mastilnitsata-olive-green: #73683B;

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ page.title }} | {{ site.name }}</title>
+
+    {% if page.description %}
+    <meta name="description" content="{{ page.description }}" />
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/fonts/font-faces.css" />
+    <link rel="stylesheet" href="/assets/css/mastilnitsata.css" />
+    <link rel="stylesheet" href="/assets/css/aos.css" />
+    <link rel="stylesheet" href="/assets/css/lightbox.min.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <span class="position-absolute trigger"></span>
+      <nav class="navbar navbar-expand-sm sticky-top navbar-light menudefault py-2">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+              <span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>
+          </a>
+          <button
+            class="navbar-toggler navbar-toggler-right"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav"></ul>
+            <div id="navbar1" class="collapse navbar-collapse">
+              <ul id="menu-primary-menu" class="navbar-nav ml-auto">
+                <li
+                  itemscope="itemscope"
+                  itemtype="https://www.schema.org/SiteNavigationElement"
+                  id="menu-item-43"
+                  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-39 current_page_item active menu-item-43 nav-item">
+                  <a
+                    title="Начало"
+                    href="http://localhost/"
+                    class="nav-link"
+                    aria-current="page">
+                    Начало</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <main id="content">
+
+          <!--
+          <article
+            id="post-39"
+            class="post-39 page type-page status-publish hentry">
+            <div class="entry-content">
+              <div
+                class="full-row-block"
+                class="wp-block-mastilnitsata-media-banner-block">
+                <div class="video-wrapper">
+                  <video autoplay muted loop class="video">
+                    <source
+                      src="http://localhost/wp-content/themes/mastilnitsata/video/Flicking_Through_Book_002_Videvo.mp4"
+                      type="video/mp4" />
+                  </video>
+                  <div class="video-overlay">
+                    <div class="container" style="height: 100%;">
+                      <div class="row" style="height: 100%;">
+                        <div
+                          class="col-12 py-4"
+                          style="
+                            height: 100%;
+                            align-items: center;
+                            display: flex;">
+                          <div>
+                            <span>WRITE YOURSELF<br /></span
+                            ><span>THIS IS CUSTOM TEXT<br /></span
+                            ><span>WHATEVER, MAN&#8230;<br /></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            -->
+              {% include block-content.html blockname="What is Mastilnicata?" %}
+
+              {% include block-content.html blockname="Who am I" %}
+
+
+              <div class="m-aos-fade-left">
+                {% include block-testimonials.html %}
+              </div>
+
+              <div class="entry-links"></div>
+            </div>
+          </article>
+        </main>
+        <aside id="sidebar"></aside>
+      </div>
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="footer-content-center">
+              Copyright &copy; 2020 Мастилницата &amp;
+              <a href="http://www.alonintheworld.com" target="_blank">alonintheworld</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-migrate-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/aos.js"></script>
+    <script type="text/javascript" src="/assets/js/mastilnitsata.js"></script>
+  </body>
+</html>

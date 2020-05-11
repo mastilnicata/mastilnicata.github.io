@@ -1,0 +1,12 @@
+.hiddenPost {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.visiblePost {
+    color: green;
+    background-color: transparent;
+    text-align: center;
+}

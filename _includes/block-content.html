@@ -1,0 +1,18 @@
+{% assign block = site.content-blocks | where:"title", include.blockname  | first %}
+{% if block %}
+
+{% if block.hidden %}
+    <!-- block-content: block with title "{{include.blockname}}" is hidden-->
+{% else %}
+<div class="row Neucha" data-aos="fade-left">
+    <div class="col-12 darksection" style="{% if block.bg-color %}background-color: {{block.bg-color}}; {% endif %} {% if block.color %}color: {{block.color}} {% endif %}">
+        {% assign block = block | replace: "[[mastilnicata-m]]", '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade-M"></span>' %}
+        {% assign block = block | replace: "[[mastilnicata-feather]]", '<span class="mastilnitsata mastilnitsata-new-design-feather"></span>' %}
+        {% assign block = block | replace: "[[mastilnicata-logo]]", '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade"></span>' %}
+                {{ block }}
+    </div>
+</div>
+{% endif %}
+{% else %}
+    <!-- block-content: block with title "{{include.blockname}}" was not found-->
+{% endif %}

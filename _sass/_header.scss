@@ -1,0 +1,29 @@
+/* Navigation menu, brand, and other header areas */
+
+.sticky-top {
+    transition: all 0.5s ease-in;
+}
+
+.stuck .sticky-top {
+    background-color: $mastilnitsata-dark !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    background-image: none;
+    color: $mastilnitsata-light !important;
+}
+
+.menudefault
+{
+    line-height: 32px;
+}
+
+.navbar-brand
+{
+	font-family: kaligrafica;
+	font-size: 37pt !important;
+}
+.nav-link
+{
+	font-family: B52;
+	font-size: 18pt;
+}
