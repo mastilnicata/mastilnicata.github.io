@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ page.title }} | {{ site.name }}</title>
+    {% assign pagetitle = site.name %}
+    {% if page.title %}
+      {% assign pagetitle = page.title | append: " | " | append: pagetitle %}
+    {% endif %}
+
+    {% if jekyll.environment == "production" %}
+    {% assign siteurl="https://mastilnicata.com" %}
+    {%else%}
+    {% assign siteurl = site.url %}
+    {% endif %}
+  
+    {% if page.url contains '://' %}
+    {% assign currentUrl = page.url %}
+    {%else%}
+    {% assign currentUrl = page.url | prepend: siteurl %}
+    {% endif %}
+
+    {% assign seotitle = pagetitle %}
+    {% if page.seo_title %}
+    {% assign seotitle = page.seo_title %}
+    {% endif %}
+
+    {% if page.image %}
+    {% if page.image contains '://' %}
+    {% assign featuredImage = page.image %}
+    {%else%}
+    {% assign featuredImage = page.image | prepend: siteurl %}
+    {% endif %}
+    {% endif %}
+
+    <title>{{ pagetitle }}</title>
 
     {% if page.description %}
     <meta name="description" content="{{ page.description }}" />
     {% endif %}
+
+    <meta property="og:type" content="business.business" />
+    <meta property="og:url" content="{{ currentUrl }}" />
+    {% if featuredImage %}
+    <meta property="og:image" content="{{ featuredImage }}" />
+    {% endif %}
+    {% if page.seo_title %}
+    <meta property="og:title" content="{{ page.seo_title | escape }}" />
+    {% else %}
+    <meta property="og:title" content="{{ pagetitle | escape }}" />
+    {% endif %}
+    {% if page.subtitle %}
+    <meta property="og:description" content="{{ page.subtitle | escape }}" />
+    {% endif %}
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/assets/fonts/font-faces.css" />
