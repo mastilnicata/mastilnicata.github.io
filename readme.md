@@ -1,4 +1,6 @@
-Travis says: [![Build Status](https://travis-ci.com/mastilnicata/mastilnicata.github.io.svg?branch=work)](https://travis-ci.com/mastilnicata/mastilnicata.github.io)](https://travis-ci.com/github/mastilnicata/mastilnicata.github.io)
+Travis says: ![Build Status](https://travis-ci.com/mastilnicata/mastilnicata.github.io.svg?branch=work)](https://travis-ci.com/mastilnicata/mastilnicata.github.io)
+
+](https://travis-ci.com/github/mastilnicata/mastilnicata.github.io)
 
 
 To run locally:
