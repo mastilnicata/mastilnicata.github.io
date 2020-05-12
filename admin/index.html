@@ -2,10 +2,32 @@
     <link href="https://unpkg.com/netlify-cms/dist/cms.css" rel="stylesheet"/>
 </head>
 <body>
-  <script src="https://unpkg.com/netlify-cms/dist/cms.js"></script>
+  <script src="https://unpkg.com/netlify-cms/dist/netlify-cms.js"></script>
   <script>
     CMS.registerPreviewStyle("styles/custom-preview.css");
     CMS.registerPreviewStyle("../assets/css/mastilnitsata.css");
+    window.CMS_MANUAL_INIT = true
+
+    initCMS({
+      config: {
+        backend: {
+          name: 'git-gateway',
+        },
+        local_backend: true,
+        load_config_file: false,
+        media_folder: "static/images/uploads",
+        public_folder: "/images/uploads",
+        collections: [
+          { label: "Blog", name: "blog", folder: "_posts/blog", create: true, fields: [
+            { label: "Title", name: "title", widget: "string" },
+            { label: "Publish Date", name: "date", widget: "datetime" },
+            { label: "Featured Image", name: "thumbnail", widget: "image" },
+            { label: "Body", name: "body", widget: "markdown" },
+          ]},
+        ],
+      },
+    });
+
 
       var TestimonialPreview = createClass({
         render: function() {

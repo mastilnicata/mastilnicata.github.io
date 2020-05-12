@@ -14,17 +14,75 @@ function normalizeSlideHeights() {
     })
 }
 
-(new IntersectionObserver(function(e,o){
-    if (e[0].intersectionRatio > 0){
-        document.documentElement.removeAttribute('class');
-        document.querySelector(".navbar").classList.replace("navbar-dark","navbar-light");
-        //document.querySelector("#brand-logo").src="<?php bloginfo('template_url'); ?>/images/brand24x24.png"
-    } else {
-        document.documentElement.setAttribute('class','stuck');
-        document.querySelector(".navbar").classList.replace("navbar-light","navbar-dark");
-        //document.querySelector("#brand-logo").src="<?php bloginfo('template_url'); ?>/images/brand24x24-white.png"
-    };
-})).observe(document.querySelector('.trigger'));
+if(document.querySelector('.trigger'))
+{
+    (new IntersectionObserver(function(e,o){
+        if (e[0].intersectionRatio > 0){
+            document.documentElement.removeAttribute('class');
+            document.querySelector(".navbar").classList.replace("navbar-dark","navbar-light");
+            //document.querySelector("#brand-logo").src="<?php bloginfo('template_url'); ?>/images/brand24x24.png"
+        } else {
+            document.documentElement.setAttribute('class','stuck');
+            document.querySelector(".navbar").classList.replace("navbar-light","navbar-dark");
+            //document.querySelector("#brand-logo").src="<?php bloginfo('template_url'); ?>/images/brand24x24-white.png"
+        };
+    })).observe(document.querySelector('.trigger'));
+}
+
+
+function activateTypewriter()
+{
+  var typewriter = document.getElementById("typewriter");
+  if(typewriter)
+  {
+    var texts = typewriter
+      .getElementsByClassName("typewritertexts")[0]
+      .getElementsByTagName("span");
+  
+    var text=0; var char=0;
+    var speed = 35;
+    var prewait = 0; var prewwaittime = 500;
+    var postwait = 0; var postwaittime = 2000;
+    
+    setInterval(function(){
+        var curtext = texts[text].innerHTML;
+        if((char < curtext.length) || (prewait <= prewwaittime))
+        {
+            if(prewait <= prewwaittime)
+                prewait += speed;
+            else if (char < curtext.length)
+                document.getElementById("textcontent").innerHTML += curtext[char++];
+        }
+        else
+        {
+            if(text < texts.length -1)
+            {
+                document.getElementById("textcontent").innerHTML += "<br/>";
+                char = 0;
+                text ++;
+            }
+            else
+            {
+                if(postwait <= postwaittime)
+                    postwait += speed;
+                else
+                {
+                    var content = document.getElementById("textcontent").innerHTML;
+                    if(content.length > 0)
+                        document.getElementById("textcontent").innerHTML = content.substr(0, content.length-2);
+                    else
+                    {
+                        char = 0;
+                        text = 0;
+                        postwait = 0;
+                        prewait = 0;
+                    }
+                }
+            }
+        }
+    }, speed);
+  }
+}
 
 jQuery(window).load(function() {
     AOS.refreshHard();
@@ -32,6 +90,8 @@ jQuery(window).load(function() {
 
 jQuery
 (document).ready(function($) {
+    activateTypewriter();
+
     $('*[class*="m-aos"]').each(function(){
         var aosdata = /m-aos\-(\S*)/g.exec(this.className);
         if(aosdata.length > 1)

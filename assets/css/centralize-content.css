@@ -1,0 +1,31 @@
+/*
+to use this:
+    <link rel="stylesheet" href="/assets/css/centralize-content.css" />
+    <div class="centerwrapper">
+        <div class="box">
+            Content goes here!
+        </div>
+    </div>
+*/
+.wrapper{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    width:100%;
+}
+
+.centerwrapper {
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.centerwrapper .box {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}

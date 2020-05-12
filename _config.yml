@@ -40,6 +40,8 @@ collections:
   testimonials:
   content-blocks:
   animated-banners:
+  page-generators:
+    output: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
