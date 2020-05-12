@@ -1,0 +1,26 @@
+#typewriter
+{
+    font-family: B52;
+    font-size: 15pt;
+    display: inline-block;
+    text-align: left;      
+}
+
+.cursor{
+    animation:blinkingText 1.0s infinite;
+}
+
+@keyframes blinkingText{
+    0%{     color: red;    }
+    49%{    color: red; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: red;    }
+}
+
+#animated-banner {
+  height: 400px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  padding: 20px;
+}

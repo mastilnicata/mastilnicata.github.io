@@ -7,10 +7,7 @@ backend:
 #backend:
 #  name: git-gateway
 #local_backend: true
-  # name: github
-  # repo: literaturnirazgovori/literaturnirazgovori.github.io # Path to your Github repository
-  # branch: work # Branch to update
-  # base_url: https://warm-woodland-78106.herokuapp.com
+#npx netlify-cms-proxy-server & bundle exec jekyll serve --incremental
 
 # publish_mode: editorial_workflow
 media_folder: Uploads
