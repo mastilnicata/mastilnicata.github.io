@@ -50,6 +50,19 @@ var collections =
           { "label": "Content", "name": "body", "widget": "markdown" },
           { "label": "Gender icon", "name": "genger", "widget": "select", "default": "Male", "multiple": false, "options": ["Male", "Female"] }
         ]
+    },
+    {
+        "name": "page-generators",
+        "label": "Pages",
+        "folder": "/custom_collections/_page-generators",
+        "create": true,
+        "slug": "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}",
+        "identifier_field": "name",
+        "fields": [
+            { "label": "Page", "name": "name", "widget": "pagetitle", "required": true, "id": "page-generator-title", "mirrored": true },
+            { "label": "Content", "name": "body", "widget": "markdown" },
+            { "label": "Permalink", "name": "permalink", "widget": "permalink", "required": false, "mirrorfield": "page-generator-title" }
+        ]
     }
   ]
 

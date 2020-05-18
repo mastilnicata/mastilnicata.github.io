@@ -4,6 +4,8 @@
 <body>
   <script src="/admin/scripts/config.js"></script>
   <script src="https://unpkg.com/netlify-cms/dist/netlify-cms.js"></script>
+  <!-- https://github.com/uzairfarooq/arrive -->
+  <script src="/admin/scripts/arrive.js"></script>
   <script>
     CMS.registerPreviewStyle("styles/custom-preview.css");
     CMS.registerPreviewStyle("../assets/css/mastilnitsata.css");
@@ -136,24 +138,137 @@
         handleChange: function(e) {
           this.props.onChange(e.target.value);
         },
+        render: function() {
+          var value = this.props.value;
+          var ctl = h('div', {}, 
+            h('input', { type: 'color', value: value ? value : '', onChange: this.handleChange }), 
+            h('input', { type:'text', value: value ? value : '', onChange: this.handleChange })
+          );
+          return ctl;
+        }
+      });
+      var colorpickerPreview = createClass({
+        render: function() {
+          return h('div', { "style" : { "backgroundColor" : this.props.value } } );
+        }
+      });
+      CMS.registerWidget('color-picker', colorpickerControl, colorpickerPreview);
+
+
+
+      String.prototype.allReplace = function(obj) {
+        var retStr = this;
+        for (var x in obj) {
+            retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+        }
+        return retStr;
+      };
+
+      var PermalinkControl = createClass({
+        handleChange: function(e) {
+          var sanitizedValue = e.target.value;
+          sanitizedValue = sanitizedValue.toLowerCase().trim().replace(/\s/g,'-');
+          sanitizedValue = sanitizedValue.allReplace(
+            { 'а':'a', 'б':'b', 'в':'w', 'г':'g', 'д':'d', 'е':'e', 'ж':'zh', 
+            'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 
+            'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'h', 
+            'ц':'c', 'ч':'ch', 'ш':'sh', 'щ':'sht', 'ъ':'y', 'ь':'y', 'ю':'yu', 'я':'ya',
+            '\\.': '-', '\\/': '-', '\\?': '-', '\\!': '-', '\\#': '-', '\\%': '-', '\\(':'-', '\\)': '-', '\\[':'-', '\\]':'-', 
+            '\\{':'-', '\\\'':'-', '\\"':'-'});
+
+          this.props.onChange(sanitizedValue);
+        },
       
         render: function() {
           var value = this.props.value;
-          var ctl = h('div', {}, h('input', { type: 'color', value: value ? value : '', onChange: this.handleChange }), h('input', { type:'text', value: value ? value : '', onChange: this.handleChange }) );
+          var mirrorfield = this.props.field.get("mirrorfield");
+          var additionalClass = (mirrorfield)? 'waitforit': '';
+
+          var ctl = h('div', { style:{'backgroundColor' : 'Blue' } }, 
+            h('input', { id:'permalinkvtl', className: additionalClass, type: 'text', style:{ 'backgroundColor' : 'Yellow' }, value: value, 'data-mirror': mirrorfield, onChange: this.handleChange })
+            );
+            var pagetitlectl = document.getElementById("pagetitlectl");
+
+            console.log(":: :: PermalinkControl RENDER (pagetitlectl: "+pagetitlectl+")");
+            if(pagetitlectl)
+            {
+              pagetitlectl.oninput = function() { /*document.getElementById("permalinkvtl").value = document.getElementById("pagetitlectl").value; */this.props.onChange(document.getElementById("pagetitlectl").value); }
+            }
+
+            
           return ctl;
         }
       });
       
-      var CategoriesPreview = createClass({
+      var PermalinkPreview = createClass({
         render: function() {
-          return h('ul', {},
-            this.props.value.map(function(val, index) {
-              return h('li', {key: index}, val);
-            })
-          );
+          return h('ul', {}, h('div', { style: { 'backgroundColor': 'cyan'}}, this.props.value ));
+        }
+      });
+      CMS.registerWidget('permalink', PermalinkControl, PermalinkPreview);
+
+
+
+
+      var PagetitleControl = createClass({
+        handleChange: function(e) {
+          this.props.onChange(e.target.value);
+        },
+      
+        render: function() {
+          var value = this.props.value;
+
+          var idfield = this.props.field.get("id");
+          var mirrored = this.props.field.get("mirrored");
+          var additionalClass = (mirrored)? 'waitforit': '';
+
+          var fieldobject = { type: 'text', className: additionalClass,  style:{'backgroundColor' : 'orange'}, value, onChange: this.handleChange };
+          if(idfield)
+          {
+            fieldobject.id = idfield;
+          }
+
+          var ctl = h('div', { style:{'backgroundColor' : 'red' } }, 
+            h('input', fieldobject)
+            );
+            var permalinkvtl = document.getElementById("permalinkvtl");
+            console.log(":: :: PagetitleControl RENDER (permalinkvtl: "+permalinkvtl+")");
+            window.waitforit = "#pagetitlectl";
+          return ctl;
         }
       });
       
-      CMS.registerWidget('color-picker', colorpickerControl, CategoriesPreview);
+      var PagetitlePreview = createClass({
+        render: function() {
+          return h('ul', {}, h('div', { style: { 'backgroundColor': 'green'}}, this.props.value ));
+        }
+      });
+      CMS.registerWidget('pagetitle', PagetitleControl, PagetitlePreview);
+
+      //Wait for all the elements marked as "waitforit"
+      document.arrive(".waitforit", function() {
+        [].slice.call(document.getElementsByClassName("waitforit")).forEach(function(element, index){
+          //is there an element mirroring another?
+          var mirroredId = element.getAttribute("data-mirror");
+          if(mirroredId)
+          {
+            //get the mirrored element
+            var mirroredElement = document.getElementById(mirroredId);
+            if(mirroredElement)
+            {
+              //mirror the value
+              mirroredElement.addEventListener("input", function(){
+                var val = mirroredElement.value;
+
+                //dispatch the changed event
+                var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+                nativeInputValueSetter.call(element, val);
+                var ev2 = new Event('input', { bubbles: true});
+                element.dispatchEvent(ev2);
+              });
+            }
+          }
+        });
+      });
     </script>
 </body>
