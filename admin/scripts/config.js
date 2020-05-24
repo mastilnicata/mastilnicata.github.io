@@ -1,10 +1,12 @@
 window.CMS_MANUAL_INIT = true;
 
+var pagelayouts = ["default", "blank"];
+
 var collections = 
 [
     { 
         "name": "content-blocks" ,
-        "label": "Content blocks",
+        "label": "Content block",
         "folder": "/custom_collections/_content-blocks",
         "create": true,
         "slug": "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}",
@@ -20,7 +22,7 @@ var collections =
     },
     {
         "name": "animated-banners",
-        "label": "Animated banners",
+        "label": "Animated banner",
         "folder": "custom_collections/_animated-banners",
         "create": true,
         "slug": "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}",
@@ -36,7 +38,7 @@ var collections =
 
 
         "name": "testimonial" ,
-        "label": "Testimonials",
+        "label": "Testimonial",
         "folder": "/custom_collections/_testimonials",
         "create": true,
         "slug": "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}",
@@ -53,15 +55,16 @@ var collections =
     },
     {
         "name": "page-generators",
-        "label": "Pages",
+        "label": "Page",
         "folder": "/custom_collections/_page-generators",
         "create": true,
         "slug": "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{slug}}",
         "identifier_field": "name",
         "fields": [
-            { "label": "Page", "name": "name", "widget": "pagetitle", "required": true, "id": "page-generator-title", "mirrored": true },
+            { "label": "Page name", "name": "name", "widget": "pagetitle", "required": true, "id": "page-generator-title", "mirrored": true, "editorComponents": ["animated-banner", "content-blocks", "testimonials"] },
             { "label": "Content", "name": "body", "widget": "markdown" },
-            { "label": "Permalink", "name": "permalink", "widget": "permalink", "required": false, "mirrorfield": "page-generator-title" }
+            { "label": "Permalink", "name": "permalink", "widget": "permalink", "required": true, "mirrorfield": "page-generator-title" },
+            { "label": "Page layout", "name": "layout", "widget": "select", "required": true, "options": pagelayouts, "default": "default" }
         ]
     }
   ]
