@@ -1,0 +1,25 @@
+{% assign block = site.animated-banners | where:"title", include.banner  | first %}
+
+{% assign typewriterTexts = '' %}
+{% assign textlines = block | newline_to_br | split: '<br />' %}
+{% for line in textlines %}
+    {% assign strippedline = line | strip_html | strip %}
+    {% unless strippedline == empty %}
+        {% assign typewriterTexts = typewriterTexts | append: '<span>' | append: strippedline | append: '</span>' %}
+    {% endunless %}
+{% endfor %}
+
+<div class="row">
+    <div class="col-12 animated-banner">
+        <div class="typewriter">
+            <span class="typewritertexts" style="display:none">
+                {{ typewriterTexts }}
+            </span>
+            <span class="textcontent"></span>
+            <span class="cursor">|</span>
+        </div>
+        <div class="logo">
+            <span class="mastilnitsata mastilnitsata-mastilnitsa-handmade-M" style="font-size: 47pt;"></span>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,8 @@
 ---
 <head>
     <link href="https://unpkg.com/netlify-cms/dist/cms.css" rel="stylesheet"/>
+    <link href="styles/custom-preview.css" rel="stylesheet"/>
+    <link href="/assets/fonts/mastilnitsata-font.css" rel="stylesheet"/>
 </head>
 <body>
   <script src="/admin/scripts/config.js"></script>
@@ -11,6 +13,7 @@
   <script>
     CMS.registerPreviewStyle("styles/custom-preview.css");
     CMS.registerPreviewStyle("../assets/css/mastilnitsata.css");
+    CMS.registerPreviewStyle("../assets/css/animated-banner.css");
     window.CMS_MANUAL_INIT = true
 
     var env = "{{jekyll.environment}}";
@@ -106,30 +109,55 @@
       CMS.registerPreviewTemplate("content-blocks", ContentBlockPreview);
 
 
-      var AnimatedBannerPreview = createClass({
+      
+      var ContentBlockPreview = createClass({
         render: function() {
-          /*
           var entry = this.props.entry;
           var content = this.props.widgetFor('body');
 
-          var bgColor = entry.getIn(['data', 'bg-color']);
-          bgColor = (typeof(bgColor) == typeof(undefined))? 'transparent' : bgColor;
-          var color = entry.getIn(['data', 'color']);
-          color = (typeof(color) == typeof(undefined))? 'black' : color;
-          var css = entry.getIn(['data', 'css-class']);
-          css = (typeof(css) == typeof(undefined))? '' : css;
-
-          var isHiddenText = 'This content block is ' + ((entry.getIn(['data', 'hidden']))? 'hidden':'visible!');
-          var messageClass = ((entry.getIn(['data', 'hidden']))? 'hiddenPost':'visiblePost');
-
-          
           if(content)
           {
             content.props.value = content.props.value.replace(/[\\]*\[\[mastilnicata\-logo\]\]/g, '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade"></span>');
             content.props.value = content.props.value.replace(/[\\]*\[\[mastilnicata\-m\]\]/g, '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade-M"></span>');
             content.props.value = content.props.value.replace(/[\\]*\[\[mastilnicata\-feather\]\]/g, '<span class="mastilnitsata mastilnitsata-new-design-feather"></span>');
-          }*/
-          return h('div', {}, "banner");
+          }
+           
+          var preview = h('div', {}, content);
+          return preview;
+        }
+      });
+      CMS.registerPreviewTemplate("page-generators", ContentBlockPreview);
+
+
+
+
+      var AnimatedBannerPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var content = this.props.widgetFor('body');          
+
+          var lineElements = [];
+          var visibleLines = [];
+          var lines = content.props.value.split("\n").filter(item => item);
+          lines.forEach(function(line, index){
+            var linebreak = (index == lines.length -1) ? null: h('br', {});
+            lineElements.push(h('span',{}, line));
+            visibleLines.push(h('span',{}, line, linebreak));
+          });
+
+          var preview = h('div', { 'className' : 'animated-banner' },
+            h('div', { 'className': 'typewriter' },
+              h('span', { 'className': 'typewritertexts'}, lineElements),
+              h('span', { 'className': 'textcontent' }, visibleLines),
+              h('span', { 'className': 'cursor' }, '|' )
+            ),
+            h('div', {'className': 'logo'},
+              h('span', { 'classNae': 'mastilnitsata mastilnitsata-mastilnitsa-handmade-M', 'style': { 'fontSize': '47pt' }})
+            )/*,
+            h('script', { 'src': '../assets/js/mastilnitsata.js' } ),
+            h('script', {}, ' alert("hi"); activateTypewriter(); ')*/
+          );
+          return preview;
         }
       });
       CMS.registerPreviewTemplate("animated-banners", AnimatedBannerPreview);
@@ -166,18 +194,46 @@
         return retStr;
       };
 
+function slugify(str)
+{
+    str = str.replace(/^\s+|\s+$/g, '');
+
+    // Make the string lowercase
+    str = str.toLowerCase();
+
+    // Remove accents, swap ñ for n, etc
+    str = str.allReplace(
+      { 'а':'a', 'б':'b', 'в':'w', 'г':'g', 'д':'d', 'е':'e', 'ж':'zh', 
+      'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 
+      'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'h', 
+      'ц':'c', 'ч':'ch', 'ш':'sh', 'щ':'sht', 'ъ':'y', 'ь':'y', 'ю':'yu', 'я':'ya',
+      '\\.': '-', '\\/': '-', '\\?': '-', '\\!': '-', '\\#': '-', '\\%': '-', '\\(':'-', '\\)': '-', 
+      '\\[':'-', '\\]':'-', '\\{':'-', '\\\'':'-', '\\"':'-', 
+      'Á': 'A', 'Ä': 'A', 'Â': 'A', 'À': 'A', 'Ã': 'A', 'Å': 'A', 'Č': 'C', 'Ç': 'C', 'Ć': 'C', 
+      'Ď': 'D', 'É': 'E', 'Ě': 'E', 'Ë': 'E', 'È': 'E', 'Ê': 'E', 'Ẽ': 'E', 'Ĕ': 'E', 'Ȇ': 'E', 
+      'Í': 'I', 'Ì': 'I', 'Î': 'I', 'Ï': 'I', 'Ň': 'N', 'Ñ': 'N', 'Ó': 'O', 'Ö': 'O', 'Ò': 'O', 
+      'Ô': 'O', 'Õ': 'O', 'Ø': 'O', 'Ř': 'R', 'Ŕ': 'R', 'Š': 'S', 'Ť': 'T', 'Ú': 'U', 'Ů': 'U', 
+      'Ü': 'U', 'Ù': 'U', 'Û': 'U', 'Ý': 'Y', 'Ÿ': 'Y', 'Ž': 'Z', 'á': 'a', 'ä': 'a', 'â': 'a', 
+      'à': 'a', 'ã': 'a', 'å': 'a', 'č': 'c', 'ç': 'c', 'ć': 'c', 'ď': 'd', 'é': 'e', 'ě': 'e', 
+      'ë': 'e', 'è': 'e', 'ê': 'e', 'ẽ': 'e', 'ĕ': 'e', 'ȇ': 'e', 'í': 'i', 'ì': 'i', 'î': 'i', 
+      'ï': 'i', 'ň': 'n', 'ñ': 'n', 'ó': 'o', 'ö': 'o', 'ò': 'o', 'ô': 'o', 'õ': 'o', 'ø': 'o', 
+      'ð': 'o', 'ř': 'r', 'ŕ': 'r', 'š': 's', 'ť': 't', 'ú': 'u', 'ů': 'u', 'ü': 'u', 'ù': 'u', 
+      'û': 'u', 'ý': 'y', 'ÿ': 'y', 'ž': 'z', 'þ': 'b', 'Þ': 'B', 'Đ': 'D', 'đ': 'd', 'ß': 'B', 
+      'Æ': 'A', 'a': 'a', '·': '-', '/': '-', '_': '-', ',': '-', ':': '-', ';': '-'});
+
+    // Remove invalid chars
+    str = str.replace(/[^a-z0-9 -]/g, '')
+      // Collapse whitespace and replace by -
+      .replace(/\s+/g, '-') 
+      // Collapse dashes
+      .replace(/-+/g, '-'); 
+
+    return str;
+}
+
       var PermalinkControl = createClass({
         handleChange: function(e) {
-          var sanitizedValue = e.target.value;
-          sanitizedValue = sanitizedValue.toLowerCase().trim().replace(/\s/g,'-');
-          sanitizedValue = sanitizedValue.allReplace(
-            { 'а':'a', 'б':'b', 'в':'w', 'г':'g', 'д':'d', 'е':'e', 'ж':'zh', 
-            'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 
-            'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'h', 
-            'ц':'c', 'ч':'ch', 'ш':'sh', 'щ':'sht', 'ъ':'y', 'ь':'y', 'ю':'yu', 'я':'ya',
-            '\\.': '-', '\\/': '-', '\\?': '-', '\\!': '-', '\\#': '-', '\\%': '-', '\\(':'-', '\\)': '-', '\\[':'-', '\\]':'-', 
-            '\\{':'-', '\\\'':'-', '\\"':'-'});
-
+          var sanitizedValue = slugify(e.target.value);
           this.props.onChange(sanitizedValue);
         },
       
@@ -187,7 +243,7 @@
           var additionalClass = (mirrorfield)? 'waitforit': '';
 
           var ctl = h('div', { style:{'backgroundColor' : 'Blue' } }, 
-            h('input', { id:'permalinkvtl', className: additionalClass, type: 'text', style:{ 'backgroundColor' : 'Yellow' }, value: value, 'data-mirror': mirrorfield, onChange: this.handleChange })
+            h('input', { id:'permalinkvtl', className: 'custom-text-field ' + additionalClass, type: 'text', style:{ 'backgroundColor': 'rgb(223, 223, 227)', 'color': 'rgb(122, 130, 145)' }, value: value, 'data-mirror': mirrorfield, onChange: this.handleChange })
             );
             var pagetitlectl = document.getElementById("pagetitlectl");
 
@@ -204,7 +260,7 @@
       
       var PermalinkPreview = createClass({
         render: function() {
-          return h('ul', {}, h('div', { style: { 'backgroundColor': 'cyan'}}, this.props.value ));
+          return h('div', { style: { 'display': 'none'}}, this.props.value );
         }
       });
       CMS.registerWidget('permalink', PermalinkControl, PermalinkPreview);
@@ -224,7 +280,7 @@
           var mirrored = this.props.field.get("mirrored");
           var additionalClass = (mirrored)? 'waitforit': '';
 
-          var fieldobject = { type: 'text', className: additionalClass,  style:{'backgroundColor' : 'orange'}, value, onChange: this.handleChange };
+          var fieldobject = { type: 'text', className: 'custom-text-field ' +additionalClass, value, onChange: this.handleChange };
           if(idfield)
           {
             fieldobject.id = idfield;
@@ -242,14 +298,14 @@
       
       var PagetitlePreview = createClass({
         render: function() {
-          return h('ul', {}, h('div', { style: { 'backgroundColor': 'green'}}, this.props.value ));
+          return h('div', {}, this.props.value );
         }
       });
       CMS.registerWidget('pagetitle', PagetitleControl, PagetitlePreview);
 
       //Wait for all the elements marked as "waitforit"
       document.arrive(".waitforit", function() {
-        [].slice.call(document.getElementsByClassName("waitforit")).forEach(function(element, index){
+        Array.from(document.getElementsByClassName("waitforit")).forEach(function(element, index){
           //is there an element mirroring another?
           var mirroredId = element.getAttribute("data-mirror");
           if(mirroredId)
@@ -272,5 +328,125 @@
           }
         });
       });
+
+
+      
+      document.arrive(".cms-editor-visual", function() {
+        Array.from(document.getElementsByClassName("cms-editor-visual")).forEach(function(editor, index){
+          
+          var toolbar = editor.querySelector("div[class*='EditorControlBar']");
+          if(toolbar)
+          {
+            var editorinstructions = toolbar.querySelector(".editor-instructions");
+            if(!editorinstructions)
+            {
+              var div = document.createElement("DIV");
+              div.className = "editor-instructions";
+              div.innerHTML = "<div style=\"font-weight:bold\">Мастилницата:</div>\
+                [[mastilnicata-logo]] = <span class=\"mastilnitsata mastilnitsata-mastilnitsa-handmade\"></span>\
+                [[mastilnicata-m]] = <span class=\"mastilnitsata mastilnitsata-mastilnitsa-handmade-M\"></span>\
+                [[mastilnicata-feather]] = <span class=\"mastilnitsata mastilnitsata-new-design-feather\"></span>";
+
+              toolbar.appendChild(div);
+            }
+          }
+        });
+      });
+
+//-----------------------------
+  CMS.registerEditorComponent({
+
+    id: "content-blocks",
+
+    label: "Content block",
+
+    fields: [{name: 'title', label: 'Content', widget: 'select', options: [ 
+      {% for block in site.content-blocks %}
+        {label:"{{ block.title }}", value: "{{ block.title }}"}{% unless forloop.last %},{% endunless %}
+      {% endfor %}  
+    ]}],
+
+    pattern: /^\{\%\s+include\s+block\-content\.html\s+blockname\s*\=\"([^\"]*)\"\s+\%\}$/,
+
+    fromBlock: function(match) {
+      console.log("cauought block: " + match);
+      return {
+        title: match[1]
+      };
+    },
+    toBlock: function(contentblock) {
+      var previewtitle = ((contentblock && contentblock != "undefined" && contentblock.title && contentblock.title != "undefined")? contentblock.title : '');
+      return '{' + '% include block-content.html blockname="' + previewtitle + '" %' + '}';
+    },
+    toPreview: function(contentblock) {
+      var previewtitle = ((contentblock && contentblock != "undefined" && contentblock.title && contentblock.title != "undefined")? contentblock.title : 'None');
+      return (
+        '<div class="custom-block-preview content-block-preview"><strong>Content block:</strong> ' + previewtitle + '</div>'
+      );
+    }
+  });
+
+  //-----------------------------
+  CMS.registerEditorComponent({
+
+    id: "animated-banner",
+
+    label: "Anima. banner",
+
+    fields: [{name: 'title', label: 'Content', widget: 'select', options: [ 
+      {% for banner in site.animated-banners %}
+        {label:"{{ banner.title }}", value: "{{ banner.title }}"}{% unless forloop.last %},{% endunless %}
+      {% endfor %}  
+    ]}],
+
+    pattern: /\{\%\s+include\s+animated\-banner\.html\s+banner\s*\=\"([^\"]*)\"\s+\%\}/,
+
+    fromBlock: function(match) {
+      return {
+        title: match[1]
+      };
+    },
+    toBlock: function(banner) {
+      var previewtitle = ((banner && banner != "undefined" && banner.title && banner.title != "undefined")? banner.title : '');
+      return '{' + '% include animated-banner.html banner="' + previewtitle + '" %' + '}';
+    },
+    toPreview: function(banner) {
+      var previewtitle = ((banner && banner != "undefined" && banner.title && banner.title != "undefined")? banner.title : 'None');
+      return (
+        '<div class="custom-block-preview banner-preview"><strong>Animated banner: </strong> ' + previewtitle + '</div>'
+      );
+    }
+  });
+
+
+    //-----------------------------
+    CMS.registerEditorComponent({
+
+      id: "testimonials",
+  
+      label: "Testimonials",
+ /* 
+      fields: [{name: 'title', label: 'Content', widget: 'select', options: [ 
+        {% for banner in site.animated-banners %}
+          {label:"{{ banner.title }}", value: "{{ banner.title }}"}{% unless forloop.last %},{% endunless %}
+        {% endfor %}  
+      ]}],
+*/  
+      pattern: /\{\%\s*include\s*block\-testimonials\.html\s*%}/,
+  
+      fromBlock: function(match) {
+        return {
+          //title: match[1]
+        };
+      },
+      toBlock: function() {
+        return '{'+ '% include block-testimonials.html %' + '}';
+      },
+      toPreview: function() {
+        return (
+          '<div class="custom-block-preview"><strong>Testimonials</strong></div>'
+        );
+      }
+    });
     </script>
 </body>

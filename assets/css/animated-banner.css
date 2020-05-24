@@ -1,14 +1,3 @@
-#typewriter
-{
-    font-family: B52;
-    font-size: 14pt;
-    display: inline-block;
-    text-align: left;      
-}
-
-.cursor{
-    animation:blinkingText 1.0s infinite;
-}
 
 @keyframes blinkingText{
     0%{     color: red;    }
@@ -18,9 +7,41 @@
     100%{   color: red;    }
 }
 
-#animated-banner {
+.animated-banner
+{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(/assets/images/animated-banner-default.jpg);
   height: 400px;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  padding: 20px;
+  color: white;
+  padding: 50px;
+}
+
+.animated-banner .typewriter
+{
+    font-size: 2em;
+}
+
+.typewriter
+{
+    font-family: B52;
+    font-size: 14pt;
+    display: inline-block;
+    text-align: left;      
+}
+
+.typewriter .cursor {
+    animation:blinkingText 1.0s infinite;
+}
+
+.typewriter .typewritertexts
+{
+    display:none;
+}
+
+.animated-banner .logo
+{
+    bottom: 50px;
+    position: absolute;
+    right: 50px;
 }

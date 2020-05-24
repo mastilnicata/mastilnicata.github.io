@@ -10,3 +10,63 @@
     background-color: transparent;
     text-align: center;
 }
+
+.custom-text-field
+{
+    display: block;
+    width: 100%;
+    box-shadow: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(68, 74, 87);
+    position: relative;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    margin: 0px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(223, 223, 227);
+    border-image: initial;
+    border-radius: 0px 5px 5px;
+    outline: 0px;
+    transition: border-color 0.2s ease 0s;
+}
+
+.custom-block-preview
+{
+    height: 150px;
+    background-color: rgb(223, 223, 227);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+    color: rgb(122, 130, 145);
+}
+
+.content-block-preview
+{
+    background-color: rgb(252, 189, 194);
+}
+
+.banner-preview
+{
+    background-color: rgb(189, 252, 194);
+}
+
+.editor-instructions
+{
+    background-color: rgb(223, 223, 227);
+    padding: 0px 20px 10px 20px;
+    font-size: 10pt;
+}
+
+.editor-instructions .mastilnitsata
+{
+    color: black;
+    font-size: 14pt;
+}
+
+.editor-instructions .mastilnitsata-new-design-feather
+{
+    font-size: 10pt;
+}

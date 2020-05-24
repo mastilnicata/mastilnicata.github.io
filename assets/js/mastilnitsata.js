@@ -32,56 +32,60 @@ if(document.querySelector('.trigger'))
 
 function activateTypewriter()
 {
-  var typewriter = document.getElementById("typewriter");
-  if(typewriter)
-  {
-    var texts = typewriter
-      .getElementsByClassName("typewritertexts")[0]
-      .getElementsByTagName("span");
-  
-    var text=0; var char=0;
-    var speed = 35;
-    var prewait = 0; var prewwaittime = 500;
-    var postwait = 0; var postwaittime = 2000;
+  //(Array.from(document.getElementsByClassName("animated-banner"))).forEach(function(banner){
+    (Array.from(document.getElementsByClassName("typewriter"))).forEach(function(typewriter){
+        var texts = typewriter
+            .getElementsByClassName("typewritertexts")[0]
+            .getElementsByTagName("span");
     
-    setInterval(function(){
-        var curtext = texts[text].innerHTML;
-        if((char < curtext.length) || (prewait <= prewwaittime))
+        var text=0; var char=0;
+        var speed = 35;
+        var prewait = 0; var prewwaittime = 500;
+        var postwait = 0; var postwaittime = 2000;
+
+        var textContentElement = typewriter.getElementsByClassName("textcontent");
+        if(textContentElement.length > 0)
         {
-            if(prewait <= prewwaittime)
-                prewait += speed;
-            else if (char < curtext.length)
-                document.getElementById("textcontent").innerHTML += curtext[char++];
-        }
-        else
-        {
-            if(text < texts.length -1)
-            {
-                document.getElementById("textcontent").innerHTML += "<br/>";
-                char = 0;
-                text ++;
-            }
-            else
-            {
-                if(postwait <= postwaittime)
-                    postwait += speed;
+            setInterval(function(){
+                var curtext = texts[text].innerHTML;
+                if((char < curtext.length) || (prewait <= prewwaittime))
+                {
+                    if(prewait <= prewwaittime)
+                        prewait += speed;
+                    else if (char < curtext.length)
+                        textContentElement[0].innerHTML += curtext[char++];
+                }
                 else
                 {
-                    var content = document.getElementById("textcontent").innerHTML;
-                    if(content.length > 0)
-                        document.getElementById("textcontent").innerHTML = content.substr(0, content.length-2);
+                    if(text < texts.length -1)
+                    {
+                        textContentElement[0].innerHTML += "<br/>";
+                        char = 0;
+                        text ++;
+                    }
                     else
                     {
-                        char = 0;
-                        text = 0;
-                        postwait = 0;
-                        prewait = 0;
+                        if(postwait <= postwaittime)
+                            postwait += speed;
+                        else
+                        {
+                            var content = textContentElement[0].innerHTML;
+                            if(content.length > 0)
+                                textContentElement[0].innerHTML = content.substr(0, content.length-2);
+                            else
+                            {
+                                char = 0;
+                                text = 0;
+                                postwait = 0;
+                                prewait = 0;
+                            }
+                        }
                     }
                 }
-            }
+            }, speed);
         }
-    }, speed);
-  }
+    });
+  //});
 }
 
 jQuery(window).load(function() {
@@ -125,8 +129,8 @@ jQuery
 });
 
 AOS.init({
-    duration: 1000,
-    delay: 200,
+    duration: 500,
+    delay: 100,
     easing: 'ease-in-out',
     once: true
   });

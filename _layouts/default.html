@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ page.title }} | {{ site.name }}</title>
+    {% assign title = site.name %}
+    {% if page.name %}
+      {% assign title = title | prepend: " | " | prepend: page.name %}
+    {% endif %}
+    <title>{{ title }}</title>
 
     {% if page.description %}
     <meta name="description" content="{{ page.description }}" />
@@ -12,6 +16,7 @@
     <link rel="stylesheet" href="/assets/css/mastilnitsata.css" />
     <link rel="stylesheet" href="/assets/css/aos.css" />
     <link rel="stylesheet" href="/assets/css/lightbox.min.css" />
+    <link rel="stylesheet" href="/assets/css/animated-banner.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -19,7 +24,7 @@
       <nav class="navbar navbar-expand-sm sticky-top navbar-light menudefault py-2">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-              <span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>
+            <span class="mastilnitsata mastilnitsata-mastilnitsa-handmade"></span>
           </a>
           <button
             class="navbar-toggler navbar-toggler-right"
@@ -52,56 +57,17 @@
 
       <div class="container">
         <main id="content">
+          {% assign xxx = content %}
+          {% assign content = content | replace: "[[mastilnicata-m]]", '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade-M"></span>' %}
+          {% assign content = content | replace: "[[mastilnicata-feather]]", '<span class="mastilnitsata mastilnitsata-new-design-feather"></span>' %}
+          {% assign content = content | replace: "[[mastilnicata-logo]]", '<span class="mastilnitsata mastilnitsata-mastilnitsa-handmade"></span>' %}
+  
 
-          <!--
-          <article
-            id="post-39"
-            class="post-39 page type-page status-publish hentry">
-            <div class="entry-content">
-              <div
-                class="full-row-block"
-                class="wp-block-mastilnitsata-media-banner-block">
-                <div class="video-wrapper">
-                  <video autoplay muted loop class="video">
-                    <source
-                      src="http://localhost/wp-content/themes/mastilnitsata/video/Flicking_Through_Book_002_Videvo.mp4"
-                      type="video/mp4" />
-                  </video>
-                  <div class="video-overlay">
-                    <div class="container" style="height: 100%;">
-                      <div class="row" style="height: 100%;">
-                        <div
-                          class="col-12 py-4"
-                          style="
-                            height: 100%;
-                            align-items: center;
-                            display: flex;">
-                          <div>
-                            <span>WRITE YOURSELF<br /></span
-                            ><span>THIS IS CUSTOM TEXT<br /></span
-                            ><span>WHATEVER, MAN&#8230;<br /></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {{ content }}
               </div>
-            -->
-              {% include block-content.html blockname="What is Mastilnicata?" %}
-
-              {% include block-content.html blockname="Who am I" %}
-
-
-              <div class="m-aos-fade-left">
-                {% include block-testimonials.html %}
-              </div>
-
-              <div class="entry-links"></div>
             </div>
           </article>
         </main>
-        <aside id="sidebar"></aside>
       </div>
 
       <footer class="footer">
