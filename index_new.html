@@ -17,7 +17,7 @@ layout: default
             <div class="caption">
           <!--<h6>Hello Students</h6>-->
           <h2>Дясната ви ръка в писането</h2>
-          <p>Преди близо година и половина създадох този сайт и фейсбук страницата към него с идеята да популяризирам съвременната литература, която излиза на българския пазар, и да ви ориентирам в най-новите заглавия на добрите издателства, като пиша рецензии за книгите, правя интервюта с писателите и пускам новини за предстоящите издания.</p>
+          <p>"Мастилницата" е място, където може да проверите дали ръкописът ви е готов за чужди очи. Където заедно ще поговорим за силните и слабите му стани и за това какво още има да се свърши по него. Където ще го редактираме задълбочено и съвестно, така че да заблести. Където ще ви дадем съвети за пътя към издаването му и дори ще ви помогнем с намирането на издател.</p>
           <div class="main-button-red">
               <div class="scroll-to-section">
                 <a href="#contact">
@@ -596,34 +596,34 @@ layout: default
     <div class="col-lg-9 align-self-center">
       <div class="row">
         <div class="col-lg-12">
-          <form id="contact" action="" method="post">
+          <form id="contact" onsubmit="contact_submit(); return false;">
             <div class="row">
               <div class="col-lg-12">
-                <h2>Let's get in touch</h2>
+                <h2>СВЪРЖЕТЕ СЕ С НАС</h2>
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                  <input name="name" type="text" id="name" placeholder="YOURNAME...*" required="">
+                  <input name="name" type="text" id="name" placeholder="Име и фамилия...*" required="">
                 </fieldset>
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="YOUR EMAIL..." required="">
+                <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Email..." required="">
               </fieldset>
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                  <input name="subject" type="text" id="subject" placeholder="SUBJECT...*" required="">
+                  <input name="subject" type="text" id="subject" placeholder="Тема...*" required="">
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..." required=""></textarea>
+                  <textarea name="message" type="text" class="form-control" id="message" placeholder="Съобщението ви..." required=""></textarea>
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <button type="submit" id="form-submit" class="button">SEND MESSAGE NOW</button>
+                  <button type="submit" id="form-submit" class="button">Изпрати сега!</button>
                 </fieldset>
               </div>
             </div>
@@ -635,20 +635,16 @@ layout: default
       <div class="right-info">
         <ul>
           <li>
-            <h6>Phone Number</h6>
-            <span>010-020-0340</span>
+            <h6>Телефон:</h6>
+            <span>0882-800-534</span>
           </li>
           <li>
-            <h6>Email Address</h6>
-            <span>info@meeting.edu</span>
+            <h6>Email адрес:</h6>
+            <span>info@mastilnicata.com</span>
           </li>
           <li>
-            <h6>Street Address</h6>
-            <span>Rio de Janeiro - RJ, 22795-008, Brazil</span>
-          </li>
-          <li>
-            <h6>Website URL</h6>
-            <span>www.meeting.edu</span>
+            <h6>URL адрес:</h6>
+            <span>www.mastilnicata.com</span>
           </li>
         </ul>
       </div>
@@ -656,3 +652,29 @@ layout: default
   </div>
 </div>
 </section>
+<script>
+  function contact_submit()
+  {
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    xmlhttp.open("POST", "http://simple-node-proxy.vercel.app/api/send-mail/");
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify(
+      {
+    "to": {
+            "email": "mastilnicata@gmail.com",
+            "name": "Alon"
+        },
+    "from": {
+        "email": "info@mastilnicata.com",
+        "name": "Benji"
+    },
+    "subject": "Sent from postman",
+    "content": {
+        "html": "<b>Hello!</b>",
+        "text": "bla bla"
+    }
+}
+
+    ));
+  }
+</script>

@@ -35,6 +35,24 @@ theme: minima
 plugins:
   - jekyll-feed
 
+exclude:
+  - old.zip
+
+collections_dir: _info
+collections:
+  people:
+    output: true
+    order:
+      - antonia.html
+  books:
+    books: true
+
+defaults:
+  - scope:
+      type: "people"
+    values:
+      layout: "about-person"
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

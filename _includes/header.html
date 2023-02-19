@@ -14,9 +14,26 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li class="scroll-to-section"><a href="#top" class="active">Начало</a></li>
-                        <li><a href="meetings.html">Как помагаме</a></li>
-                        <li class="scroll-to-section"><a href="/testpage">Кои сме</a></li>
-                        <li class="scroll-to-section"><a href="#courses">Работилници</a></li> 
+                        <li class="has-sub"><a href="javascript:void(0)">Как помагаме</a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Редакция</a></li>
+                                <li><a href="#">Корекция</a></li>
+                                <li><a href="#">Рецензия/Консултация</a></li>
+                                <li><a href="#">Творческо писане</a></li>
+                                <li><a href="#">Авторови работилници</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="has-sub"><a href="javascript:void(0)">Кои сме</a>
+                            <ul class="sub-menu">
+                            {% for person in site.people %}
+                            <li><a href="/people/{{ person.title | downcase }}">{{ person.firstname }} {{ person.lastname }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+
+
+                        <li class="scroll-to-section"><a href="#courses">Новини</a></li> 
                         <li class="has-sub">
                             <a href="javascript:void(0)">Литературни</a>
                             <ul class="sub-menu">
