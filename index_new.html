@@ -660,22 +660,29 @@ layout: default
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(JSON.stringify(
       {
-    "to": {
-            "email": "mastilnicata@gmail.com",
-            "name": "Alon"
-        },
     "from": {
-        "email": "info@mastilnicata.com",
-        "name": "Benji"
+      "email": "alrotem@gmail.com",
+      "name": "Alon Rotem"
     },
-    "subject": "Sent from postman",
-    "content": {
-        "html": "<b>Hello!</b>",
-        "text": "bla bla"
-    }
+    "subject": "Just testing - contact form",
+    "body": "Just testing the contact form"
 }
 
+
+
     ));
+    xmlhttp.onreadystatechange = function (oEvent) {
+    if (xmlhttp.readyState === 4) {
+        if (xmlhttp.status === 200) {
+          console.log(xmlhttp.responseText);
+          alert("OKAY! " + xmlhttp.responseText);
+        } else {
+           console.log("Error", oXHR.statusText);
+           alert("Err! " + xmlhttp.statusText)
+        }
+    }
+};
+
     return false;
   }
 </script>
