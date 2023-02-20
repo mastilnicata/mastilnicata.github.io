@@ -656,7 +656,7 @@ layout: default
   function contact_submit()
   {
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-    xmlhttp.open("POST", "https://simple-node-proxy.vercel.app/api/send-mail/");
+    xmlhttp.open("POST", "https://simple-node-proxy.vercel.app/api/contact-form/");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(JSON.stringify(
       {
