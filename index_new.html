@@ -600,31 +600,45 @@ layout: default
 
             <!-- wait animation -->
     <style>
-      .unhidden-form {
+      #contact-sending {
+        position: absolute;
+      top: 0;
+      background: white;
+      z-index: 1000;
+      width: 100%;
+      left: 0;
+      height: 100%;
+      opacity: 0;
+      border-radius: 20px;
+      color: black;
+      display: none;
+      transition: all 1s;
+      visibility: hidden;        
+      }
+
+      #contact-sending.visible-form {
         display: flex;
         visibility: visible;
-        opacity: 0.8;
       }
+      #contact-sending.unhidden-form {      
+        opacity: 0.8;
+        transition: all 1s;
+      }
+
+      #modal_delivered .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+    margin: 0 auto;
+}
     </style>
             <div id="contact-sending" style="
-    position: absolute;
-    top: 0;
-    background: white;
-    z-index: 1000;
-    width: 100%;
-    left: 0;
-    height: 100%;
-    opacity: 0;
-    border-radius: 20px;
-    color: black;
-    display: none;
-    transition: opacity 0.5s;
-    visibility: hidden;
     "><div bis_skin_checked="1" style="
     align-self: center;
     width: 100%;
-    justify-content: center;
-"><img src="/assets/images/flip.gif" style="
+    justify-content: center; display: flex;
+"><img src="/assets/images/email.gif" style="
     width: 13%;
 "></div></div>
       <!-- /wait animation -->
@@ -684,40 +698,119 @@ layout: default
   </div>
 </div>
 </section>
+
+<div id="modal_delivered" class="modal" tabindex="-1" role="dialog" style="color:black;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modal-contact-title" class="modal-title">Thank you for your message</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-contact-body" class="modal-body">
+        <p>Thank you for contacting us.<br/>
+        Your message was sent successfully!</p>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-contact-close" type="button" class="btn" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   function contact_submit()
   {
-    return false;
-    document.getElementById("contact-sending").classList.add("unhidden-form");
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-    xmlhttp.open("POST", "https://simple-node-proxy.vercel.app/api/contact-form/");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify(
-      {
+    var contactformSendingOverlay = document.getElementById("contact-sending");
+    var contactformEmail = document.getElementById("contact-email");
+    var contactformName = document.getElementById("contact-name");
+    var contactformSubject = document.getElementById("contact-subject");
+    var contactformMessage = document.getElementById("contact-message");
+    var modal_delivered = $('#modal_delivered');
+    var modal_delivered_close = document.getElementById("modal-contact-close");
+    var modal_delivered_title = document.getElementById("modal-contact-title");
+    var modal_delivered_body = document.getElementById("modal-contact-body");
+    
+    var message_sent_successfully_title = "Thank you for your message"
+    var message_sent_successfully_body = "<p>Your message was sent successfully!</p><p>Thank you for contacting us!</p>"
+    var message_not_sent_successfully_title = "Your message was not sent!"
+    var message_not_sent_successfully_body = "<p>Sorry, there was an error and your message was not sent.</p><p>Please send an email to <a hef=\"info@mastilnicata.com\">info@mastilnicata.com</a>, or try again later.</p>"
+
+    contactformSendingOverlay.classList.add("visible-form");
+    setTimeout(function() {
+      contactformSendingOverlay.classList.add("unhidden-form");
+    }, 10)
+    var sendobj = JSON.stringify(
+    {
     "from": {
-      "email": document.getElementById("contact-email").textContent,
-      "name": document.getElementById("contact-name").textContent
+      "email": contactformEmail.value,
+      "name": contactformName.value
     },
-    "subject": document.getElementById("contact-subject").textContent,
-    "body": document.getElementById("contact-body").textContent
+    "subject": contactformSubject.value,
+    "body": contactformMessage.value
 }
 
 
 
-    ));
-    xmlhttp.onreadystatechange = function (oEvent) {
-    if (xmlhttp.readyState === 4) {
-      document.getElementById("contact-sending").classList.remove("unhidden-form");
-        if (xmlhttp.status === 200) {
-          console.log(xmlhttp.responseText);
-          alert("OKAY! " + xmlhttp.responseText);
-        } else {
-           console.log("Error", oXHR.statusText);
-           alert("Err! " + xmlhttp.statusText)
-        }
-    }
-};
+    );
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    xmlhttp.open("POST", "{{site.contactform_server}}/api/contact-form/");
+    
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    try
+    {
+      xmlhttp.send(sendobj);
+      xmlhttp.onreadystatechange = function (oEvent) {
+      if (xmlhttp.readyState === 4) {
+        contactformSendingOverlay.classList.remove("unhidden-form");
+          setTimeout(function() {
+            contactformSendingOverlay.classList.remove("visible-form");
+      }, 1100)
 
-    return false;
+        if (xmlhttp.status === 200) {
+            var  delivery_response = JSON.parse(xmlhttp.responseText);
+            if(delivery_response.sent_info.indexOf(" OK ") >= 0)
+            {
+              //Clear the form
+              contactformEmail.value = "";
+              contactformName.value = "";
+              contactformSubject.value = "";
+              contactformMessage.value = "";
+
+              modal_delivered_title.innerHTML = message_sent_successfully_title;
+              modal_delivered_body.innerHTML = message_sent_successfully_body;
+
+              modal_delivered_close.classList.remove("btn-danger");
+              modal_delivered_close.classList.add("btn-success");
+            }
+            else
+            {
+              modal_delivered_title.innerHTML = message_not_sent_successfully_title;
+              modal_delivered_body.innerHTML = message_not_sent_successfully_body;
+              modal_delivered_close.classList.remove("btn-success");
+              modal_delivered_close.classList.add("btn-danger");
+            }
+            modal_delivered.modal('show');
+            return false;
+          } else {
+            console.log("Error", xmlhttp.statusText);
+              modal_delivered_title.innerHTML = message_not_sent_successfully_title;
+              modal_delivered_body.innerHTML = message_not_sent_successfully_body;
+
+              modal_delivered_close.classList.remove("btn-success");
+              modal_delivered_close.classList.add("btn-danger");
+              modal_delivered.modal('show');
+
+            return false;
+          }
+      }
+  };
+    }
+    catch(e){
+      console.log("xmlhttp caught error: " + e);
+      return false;
+    }
+  return false;
   }
 </script>

@@ -30,6 +30,9 @@ twitter_username: jekyllrb
 github_username:  jekyll
 name: Мастилницата
 
+#URLs
+contactform_server: https://simple-node-proxy.vercel.app
+
 # Build settings
 theme: minima
 plugins:
