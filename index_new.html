@@ -649,22 +649,31 @@ layout: default
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                  <input name="name" type="text" id="contact-name" placeholder="Име и фамилия...*" required="">
+                  <input name="name" type="text" id="contact-name" placeholder="Име и фамилия...*" required="" 
+                  oninvalid="this.setCustomValidity('Името е задължително!')"
+                  oninput="this.setCustomValidity('')">
                 </fieldset>
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                <input name="email" type="text" id="contact-email" pattern="[^ @]*@[^ @]*" placeholder="Email..." required="">
+                <input name="email" type="text" id="contact-email" pattern="[^ @]*@[^ @]*" placeholder="Email..." required=""
+                oninvalid="this.setCustomValidity('Имейл е задължителен!')"
+                oninput="this.setCustomValidity('')">
               </fieldset>
               </div>
               <div class="col-lg-4">
                 <fieldset>
-                  <input name="subject" type="text" id="contact-subject" placeholder="Тема...*" required="">
+                  <input name="subject" type="text" id="contact-subject" placeholder="Тема...*" required=""
+                  oninvalid="this.setCustomValidity('Тема е задължителна!')"
+                  oninput="this.setCustomValidity('')">
                 </fieldset>
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <textarea name="message" type="text" class="form-control" id="contact-message" placeholder="Съобщението ви..." required=""></textarea>
+                  <textarea name="message" class="form-control" id="contact-message" placeholder="Съобщението ви..." 
+                    oninvalid="this.setCustomValidity('Соъбщението е задължително!')" 
+                    oninput="this.setCustomValidity('')" 
+                    required=""></textarea>
                 </fieldset>
               </div>
               <div class="col-lg-12">
@@ -713,7 +722,7 @@ layout: default
         Your message was sent successfully!</p>
       </div>
       <div class="modal-footer">
-        <button id="modal-contact-close" type="button" class="btn" data-bs-dismiss="modal">Close</button>
+        <button id="modal-contact-close" type="button" class="btn" data-bs-dismiss="modal">Затвори</button>
       </div>
     </div>
   </div>
@@ -732,10 +741,10 @@ layout: default
     var modal_delivered_title = document.getElementById("modal-contact-title");
     var modal_delivered_body = document.getElementById("modal-contact-body");
     
-    var message_sent_successfully_title = "Thank you for your message"
-    var message_sent_successfully_body = "<p>Your message was sent successfully!</p><p>Thank you for contacting us!</p>"
-    var message_not_sent_successfully_title = "Your message was not sent!"
-    var message_not_sent_successfully_body = "<p>Sorry, there was an error and your message was not sent.</p><p>Please send an email to <a hef=\"info@mastilnicata.com\">info@mastilnicata.com</a>, or try again later.</p>"
+    var message_sent_successfully_title = "Благодаря за съобщението ви!"
+    var message_sent_successfully_body = "<p>Вашето съобщение беше успешно изпратено!</p><p>Благодаря че ни контактирахте!</p>"
+    var message_not_sent_successfully_title = "Вашето съобщение не беше изпратено!"
+    var message_not_sent_successfully_body = "<p>Съжеляваме, имаше грешка и вашето съобщение не беше изпратено.</p><p>Моля изпаратете имейл на  <a hef=\"info@mastilnicata.com\">info@mastilnicata.com</a>, or try again later.</p>"
 
     contactformSendingOverlay.classList.add("visible-form");
     setTimeout(function() {
