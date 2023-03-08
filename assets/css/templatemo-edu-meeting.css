@@ -400,10 +400,12 @@ header
   text-transform: uppercase;
   letter-spacing: 2px;
   float: left;
+  /*
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  */
   position:relative;
   top: -4px;
 }
@@ -436,7 +438,7 @@ header
 }
 
 .background-header .main-nav .nav {
-  margin-top: 33px;
+  margin-top: 25px;
 }
 
 .header-area .main-nav .nav li {
@@ -454,15 +456,53 @@ header
   font-size: 24px;
   text-transform: uppercase;
   color: #cfcfcf;
+  /*
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  */
   height: 40px;
   line-height: 40px;
   border: transparent;
   letter-spacing: 1px;
   font-family: 'AlegreyaSansRegular', 'sans-serif';
+}
+
+@media (max-width: 1400px) {
+  .header-area .main-nav .nav li a {
+    font-size: 22px;
+  }
+  .background-header .main-nav .nav {
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-area .main-nav .nav li a {
+    font-size: 18px;
+  }
+  .background-header .main-nav .nav {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 990px) {
+  .header-area .main-nav .nav li a {
+    font-size: 13px;
+  }
+  .header-area .main-nav .logo {
+    font-size: 35px;
+  }
+}
+@media (max-width: 767px)
+{
+  .header-area .main-nav .nav li a {
+    font-size: 24px;
+  }
+  .header-area .main-nav .logo {
+    font-size: 59px;
+  }
 }
 
 .header-area .main-nav .nav li:hover a,
@@ -917,10 +957,11 @@ services
   text-align: center;
   color: #cfcfcf;
   padding: 40px;
+  min-height: 350px;
 }
 
 .services .item .icon {
-  max-width: 60px;
+  max-width: 78px;
   margin: 0 auto;
 }
 
@@ -933,7 +974,7 @@ services
 
 .services .item p {
   color: #cfcfcf;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .services .owl-nav {
@@ -1461,7 +1502,7 @@ section.contact-us {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 140px 0px 0px 0px;
+  padding: 140px 0px 20px 0px;
 }
 
 section.contact-us #contact {
@@ -1534,6 +1575,25 @@ section.contact-us .right-info {
   border-radius: 20px;
   padding: 40px;
 }
+@media (max-width: 1400px) {
+	section.contact-us .right-info {
+		padding: 30px;
+	}
+}
+
+@media (max-width: 1200px) {
+	section.contact-us .right-info {
+		padding: 23px 0px;
+	}
+}
+
+
+@media (max-width: 997px) {
+	section.contact-us .right-info ul li {
+		width: 100%;
+	}
+}
+
 
 section.contact-us .right-info ul li {
   display: inline-block;
