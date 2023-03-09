@@ -1489,6 +1489,10 @@ section.our-facts .video img {
   max-width: 56px;
 }
 
+.owl-carousel .owl-stage-outer {
+  width: 100%;
+  margin: 0 ;
+}
 
 /* 
 ---------------------------------------------

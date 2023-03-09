@@ -168,6 +168,7 @@
 		nav: true,
 		autoplay: true,
 		autoplaySpeed: 1000,
+		autoWidth: false,
 		margin:30,
 		  responsive:{
 			  0:{
@@ -188,6 +189,8 @@
 		dots: true,
 		nav: true,
 		autoplay: true,
+		autoplaySpeed: 1000,
+		autoWidth: false,
 		margin:30,
 		  responsive:{
 			  0:{
