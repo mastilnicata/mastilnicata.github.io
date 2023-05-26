@@ -1,41 +1,28 @@
-<!--
-
-<div class="card" style="width: 10rem; margin-top: 15px; margin-right: 15px; padding: 0;">
-    <a href="{{ include.url }}" target="_blank" >
-
-    <img class="card-img-top" src="{{ include.medialogo }}" alt="Card image cap">
+<div class="col medialink">
+  <a target="_blank" href="{{ include.link.url }}">
+  <div class="card" style="background-image:url({{ include.link.image }});">
     <div class="card-body">
-      <p class="card-text">{{ include.title }}</p>
-    </div>
-</a>
-</div>
-
-<a href="{{ include.url }}" target="_blank" >
-<div class="card mb-3" style="background-color:#cfcfcf">
-    <div class="row no-gutters">
-      <div class="col-2 col-s-4">
-        <img src="{{ include.medialogo }}" alt="{{ include.title }}">
-      </div>
-      <div class="col-10 col-s-8">
-        <div class="card-body" style="display:flex; align-items: center; height:100%; background-color:#cfcfcf">
-            <div>
-          <h5 class="card-title" style="color:black;">{{ include.title }}</h5>
-          <p class="card-text">{{ include.medium }}</p>
-        </div>
+      <div class="card-overlay">
+        <div class="card-inner">
+        <div class="quote-section">
+          {% if include.quote_symbol %}
+          <div class="quote-icon">
+            <img src="/assets/images/quote-white.png">
+          </div>
+          {% endif %}
+          {{ include.link.title }}...
+          {% if include.link.quote_person %}
+          <div class="quote-person">
+            <strong>{{ include.link.quote_person }}</strong>{% if include.link.quote_person_desc %}, {{ include.link.quote_person_desc }}{% endif %}
+          </div>
+          {% endif %}
+          </div>
         </div>
       </div>
-    </div>
+      {% if include.link.medialogo and include.link.medialogo != "" %}
+      <img class="media-logo" src="/assets/images/media-logos/{{ include.link.medialogo }}">
+      {% endif %}
   </div>
-</a>
--->
-<a href="{{ include.url }}" target="_blank" style="color:white;">
-<div class="row mb-3">
-    <div class="col-1">
-    <img src="{{ include.medialogo }}" alt="{{ include.title }}" style="width:60px; border-radius: 10px;;">
-    </div>
-    <div class="col-11">
-    <h5 class="card-title" style="color:white;">{{ include.title }}</h5>
-    <p class="card-text">{{ include.medium }}</p>
-    </div>
 </div>
 </a>
+</div>

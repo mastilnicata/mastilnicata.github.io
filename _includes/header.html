@@ -1,11 +1,11 @@
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky" style="z-index:10000">
+  <header id="main-menu" class="header-area header-sticky" style="z-index:10000">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav"  id="pagetop">
                     <!-- ***** Logo Start ***** -->
-                    <a href="/index_new.html" class="logo">
+                    <a href="//{{ site.homepage }}" class="logo">
                         <!--Edu Meeting-->
                         <!--<span class="mastilnitsata responsive-logo"></span>-->
                         <span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>
@@ -13,7 +13,7 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="#top" class="active">Начало</a></li>
+                        <li class="scroll-to-section"><a href="/{{ site.homepage }}" class="active">Начало</a></li>
                         <li class="has-sub"><a href="javascript:void(0)">Как помагаме</a>
                             <ul class="sub-menu">
                                 <li><a href="#">Редакция</a></li>
@@ -41,7 +41,7 @@
                                 <li><a href="https://www.facebook.com/literaturnirazgovori/" target="_blank"><span class="mastilnitsata mastilnitsata-facebook2"></span> Литературни разговори с АА</a></li>
                             </ul>
                         </li>
-                        <li class="scroll-to-section"><a href="#contact">Пишете ни</a></li> 
+                        <li class="scroll-to-section"><a href="/{{ site.homepage }}#contact">Пишете ни</a></li> 
                     </ul>        
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -55,6 +55,6 @@
 
 <!-- ***** Header Area End ***** -->
 
-<a id="scrollup" href="javascript:void(0)" onclick='window.scrollTo({top: 0, behavior: "smooth"}); window.location.hash="";'>
+<a id="scrollup" href="javascript:void(0)">
 <img src="/assets/images/scroll-up.png"  />
 </a>

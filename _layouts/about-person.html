@@ -5,41 +5,68 @@
   {% include head.html %}
 </head>
 
+<!--
+TODO:
+✅️ 1. Hide nav if the page is fully visible
+✅️ 2. If navigated to the bottom, highlight the last visible section
+✅️ 3. Fix the [object, object] on sliding to section
+✅️ 4. Give more buffer on section top, and navigate more accurately
+5. Fix the banner background image position
+✅️ 6. Layout of the subheader/buttons on small screens
+✅️ 7. Click on subheader scroll to top
+✅️ 8. Rearrange the custom.js
+✅️ 9. click-section scroll stop? (on small screens?)
+10. Tonya's page: button should appear only if scrollable, more than the menu height
+-->
+
 <body style="background-image:url('/assets/images/meetings-page-bg.jpg');">
   
   {% include header.html %}
 
 <!-- person page: sticky person sub header-->
-<div class="container-fluid subheader" style="z-index: 11000;">
+<div class="container-fluid subheader" style="z-index: 11000; visibility:hidden;">
   <div class="container" style="position:relative; top: -22px;">
-  <img src="/assets/images/people/{{ page.person-pic }}" style="width: auto;z-index: 9000;height: 76px;border-radius: 50%;">
-    <span style="color:#d56d40;">
+  <img id="person-subheader-pic" src="/assets/images/people/{{ page.person-pic }}" style="width: auto;z-index: 9000;height: 76px;border-radius: 50%;">
+    <span id="person-subheader-name" style="color:#d56d40;">
       {% if page.firstname %}
           {{ page.firstname }}
       {% endif%}
       {% if page.lastname %}
-          {{ page.lastname }}
+          <span id="subheader-last-name">{{ page.lastname }}</span>
       {% endif%}
     </span>
     <span class="section-item scroll-to-section">
       <a href="#moreabout">Биография</a>
     </span>
+    {% assign numofbooks = page.books-of | size %}
+    {% assign numOfReviews = page.review_links | size %}
+    {% assign numOfInterviews = page.interview_links | size %}
+
+    {% if numofbooks > 0 %}
     <span class="section-item scroll-to-section">
       <a href="#booksof">Книги</a>
     </span>
+    {% endif %}
+    {% if numOfReviews > 0 %}
     <span class="section-item scroll-to-section">
-      <a href="#inthemedia">В медиите</a>
-    </span>   
+      <a href="#reviews">Отзиви</a>
+    </span>
+    {% endif %}
+    {% if numOfInterviews > 0 %}
+    <span class="section-item scroll-to-section">
+      <a href="#interviews">Интервюта</a>
+    </span>
+    {% endif %}    
   </div>
 </div>
-<div class="container-fluid subheader" style="z-index: 9000; background-color: #f7f7f7; height: 35px;">
+<div class="container-fluid subheader subheader-bg" style="z-index: 9000; background-color: #f7f7f7; height: 35px;">
   <div class="container" style="padding-left: 105px;">
 </div>
 </div> 
 <!-- / person page: sticky person sub header-->
 
   <section class="heading-page header-text" id="top"
-    style="background-image: url('{{ page.header-pic }}'); height:850px; text-align: left;">
+    style="background: url('{{ page.header-pic }}'), {{ page.header-color }}; background-repeat: no-repeat; height:550px; text-align: left;">
     <div class="container" style="position: relative; top: -98px;">
       <div class="row">
         <div class="col-lg-12">
@@ -56,8 +83,8 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-12 mt-4">
+      <div class="row" id="person-nav" style="display:none;">
+        <div class="col-12 mt-0 mt-md-4">
           <span>
             <div class="main-button-red" style="display:inline-block; float: left; margin-right: 10px;">
               <div class="scroll-to-section">
@@ -68,6 +95,7 @@
             </div>
           </span>
 
+          {% if numofbooks > 0 %}
           <div class="main-button-red" style="display:inline-block; float: left; margin-right: 10px;">
             <div class="scroll-to-section">
               <a href="#booksof">
@@ -75,20 +103,32 @@
               </a>
             </div>
           </div>
-
+          {% endif %}
+          {% if numOfReviews > 0 %}
           <div class="main-button-red" style="display:inline-block; float: left; margin-right: 10px;">
             <div class="scroll-to-section">
-              <a href="#inthemedia">
-                В медиите
+              <a href="#reviews">
+                Отзиви
               </a>
             </div>
           </div>
+          {% endif %}
+          {% if numOfInterviews > 0 %}
+          <div class="main-button-red" style="display:inline-block; float: left; margin-right: 10px;">
+            <div class="scroll-to-section">
+              <a href="#interviews">
+                Интервюта
+              </a>
+            </div>
+          </div>
+          {% endif %}          
+
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container-fluid" id="moreabout">
+  <section class="container-fluid jumpt-to-section" id="moreabout">
     <div class="row" style="color: white;">
       <div class="col-lg-8 mx-auto pt-3 pb-3" style="line-height: 1.8;">
         <strong style="font-size:32px;">{{ page.firstname }} {{ page.lastname }}</strong><span style="margin-left:10px;">е:</span>
@@ -97,8 +137,8 @@
     </div>
   </section>
 
-
-  <section class="container-fluid" id="booksof" style="background-color:darkslategray;">
+  {% if numofbooks > 0 %}
+  <section class="container-fluid jumpt-to-section" id="booksof" style="background-color:darkslategray;">
     <div class="row" style="color: white;">
       <div class="col-lg-8 mx-auto pt-3 pb-3" style="line-height: 1.8; padding-bottom: 65px !important;">
 
@@ -111,7 +151,7 @@
               <a href="{{ bookitem.link }}" target="_blank"><img src="/assets/images/books/{{ bookitem.cover }}" style="height:132px; width:92px;     box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;"></a>
           </span>
               <span style="position: relative; top: -7px; margin-bottom: -7px;">
-                  "<a href="{{ bookitem.link }}" target="_blank">{{ bookitem.title }}</a>" ({{ bookitem.publishing }}, {{ bookitem.year }}) - {{ bookitem.type }}
+                  "<strong><a href="{{ bookitem.link }}" target="_blank">{{ bookitem.title }}</a></strong>" ({{ bookitem.publishing }}, {{ bookitem.year }}) - {{ bookitem.type }}
                   <ul style="list-style-image: url('/assets/images/trophy.png');">
                     {% for award in bookitem.awards %}
                   <li>{{ award }}</li>
@@ -127,52 +167,43 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
-  <!-- -->
-  <section class="container-fluid" id="inthemedia"
+  {% if numOfReviews > 0 %}
+  <section class="container-fluid jumpt-to-section" id="reviews"
     style="background-image:url('/assets/images/backgrounds/grunge-black-concrete-textured-background.jpg'); background-size: cover;">
     <div class="row pt-3 pb-3">
       <div class="col-lg-8 mx-auto">
 
-        <p><strong style="font-size:32px;">{{ page.firstname }} {{ page.lastname }} в медиите</strong>:</p>
-
-          <!-- LINKS SECTION -->
-          <div id="wrapper" style="
-          display: inline-block;  margin-top:20px;">
-            <span id="thumb" style=" height:100%; 
-            display:inline-block;
-            float: left;">
-              <img src="/assets/images/books/book-nas.jpg" style="height: 130px;">
-            </span>
-            <span id="info" style="float: left; margin-left: 20px">
-              <ul>
-                <li>
-                  <a target="_blank" href="https://www.dnevnik.bg/knigi/2022/06/09/4355652_nas_koito_ni_niama_-_mejdu_lokalnoto_i_universalnoto/">"Нас, които ни няма" - между локалното и универсалното"</a>, проф. Амелия Личева във в."Дневник"
-                </li>
-                <li>
-                  <a target="_blank" href="https://literaturnirazgovori.com/mybooks/2022/11/02/09-50-%D0%B4%D0%B5%D1%8F%D0%BD-%D0%B5%D0%BD%D0%B5%D0%B2-%D0%B7%D0%B0-%D0%BD%D0%B0%D1%81-%D0%BA%D0%BE%D0%B8%D1%82%D0%BE-%D0%BD%D0%B8-%D0%BD%D1%8F%D0%BC%D0%B0-%D0%B4%D1%83%D0%BC%D0%B8-%D0%BF%D1%80%D0%B8-%D0%BE%D0%B1%D1%8F%D0%B2%D1%8F%D0%B2%D0%B0%D0%BD%D0%B5%D1%82%D0%BE-%D0%BD%D0%B0-%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B4%D0%B0%D1%82%D0%B0-%D0%BD%D0%B0-%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%BB-%D0%BA%D1%83%D0%BB%D1%82%D1%83%D1%80%D0%B0.html">Деян Енев за "Нас, които ни няма"</a> при връчването на наградата на "Портал Култура"
-                </li>
-                <li>
-                  <a target="_blank" href="https://literaturnirazgovori.com/mybooks/2023/02/05/21-29-%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D0%B5%D0%BB%D1%8F%D1%82-%D0%BF%D1%80%D0%BE%D1%84-%D0%B8%D0%B2%D0%B0%D0%BD-%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2-%D1%81-%D0%B4%D1%83%D0%BC%D0%B8-%D0%B7%D0%B0-%D1%80%D0%BE%D0%BC%D0%B0%D0%BD%D0%B0-%D0%BD%D0%B0%D1%81-%D0%BA%D0%BE%D0%B8%D1%82%D0%BE-%D0%BD%D0%B8-%D0%BD%D1%8F%D0%BC%D0%B0.html">Проф. Иван Станков за "Нас, които ни няма"</a>
-                </li>
-              </ul>
-              <div class="main-button-red" >
-                  <a href="#" style="padding: 5px 8px; font-weight: bold;">
-                    Виж още...
-                  </a>
-              </div>
-            </span>
-          </div>
-          <!--/LINKS SECTION -->
-
+        <p><strong style="font-size:32px;">Отзиви</strong>:</p>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-3 mt-4"><!---->
+        {% for medialink in page.review_links %}
+          {% include medialink.html link=medialink quote_symbol=true %}
+        {% endfor %}
+        </div>
       </div>
     </div>
-
-
-
-
   </section>
+  {% endif %}
 
+  {% if numOfInterviews > 0 %}
+  <section class="container-fluid jumpt-to-section" id="interviews"
+    style=" background-image:url('/assets/images/backgrounds/abstract1.png'); background-size: cover; min-height:740px;">
+    <div class="row pt-3 pb-3">
+      <div class="col-lg-8 mx-auto">
+
+        <p><strong style="font-size:32px;">Интервюта</strong>:</p>
+        <div class="row-cols-2 row-cols-md-3 row row-cols-lg-3 row-cols-xl-4 g-4 mt-5"> <!-- row-cols-2 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 g-4 mt-5 -->
+
+        {% for interviewlink in page.interview_links %}
+          {% include interviewlink.html link=interviewlink %}
+        {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
   {% include footer.html %}
 

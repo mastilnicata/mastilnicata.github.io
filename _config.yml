@@ -32,6 +32,7 @@ name: Мастилницата
 
 #URLs
 contactform_server: https://simple-node-proxy.vercel.app
+homepage: index_new.html
 
 # Build settings
 theme: minima
