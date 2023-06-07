@@ -5,72 +5,45 @@
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <script src="assets/js/isotope.min.js"></script>
-  <script src="/assets/js/owl-carousel.js"></script>
   <script src="/assets/js/lightbox.js"></script>
   <script src="/assets/js/tabs.js"></script>
   <script src="/assets/js/video.js"></script>
   <script src="/assets/js/slick-slider.js"></script>
   <script src="/assets/js/custom.js"></script>
-  <script>
-/*
-      //according to loftblog tut
-      $('.nav li:first').addClass('active');
 
-      var showSection = function showSection(section, isAnimate) {
-        var direction = section.replace(/#/, '');
-        var reqSection = $('.section').filter('[data-section="' + direction + '"]');
-        if(reqSection.length == 0)
-        {
-          //not found by section class and section name, loop up by element id
-          reqSection = $('#' + direction);
-        }
-        if(reqSection.length == 0)
-        {
-          //still not found
-          return;
-        }
-        var menuheight = 80;
-        var subheaderheight = 0;
-        if($(".subheader").length > 0)
-        {
-          subheaderheight = $($(".subheader")[0]).height();
-        }
-        var reqSectionPos = reqSection.offset().top - (menuheight + subheaderheight);
 
-        if (isAnimate) {
-          $('body, html').animate({
-            scrollTop: reqSectionPos },
-          800);
-        } else {
-          $('body, html').scrollTop(reqSectionPos);
-        }
+  <script src="/assets/js/lightslider/lightslider.min.js"></script>
+  <script type="text/javascript">
 
-      };
 
-      var checkSection = function checkSection() {
-        $('.section').each(function () {
-          var
-          $this = $(this),
-          topEdge = $this.offset().top - 80,
-          bottomEdge = topEdge + $this.height(),
-          wScroll = $(window).scrollTop();
-          if (topEdge < wScroll && bottomEdge > wScroll) {
-            var
-            currentId = $this.data('section'),
-            reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-            reqLink.closest('li').addClass('active').
-            siblings().removeClass('active');
-          }
-        });
-      };
+    $(document).ready(function() {
 
-      $('.main-menu, .responsive-menu, .scroll-to-section').on('click', 'a', function (e) {
-        e.preventDefault();
-        showSection($(this).attr('href'), true);
+      //ref: http://sachinchoolur.github.io/lightslider/settings.html
+      var testimonialsSlider =  $('#testimonials-slider').lightSlider({
+          gallery: false, // gallery mode, with thumbs etc
+          item: 2,        //items on screen at once
+          loop: true,     // no need to explain
+          //slideMargin: 50, 
+          thumbItem: 0,   // thumbnails for gallery mode
+          auto: true,     // autoplay
+          speed: 400,     // transition speed in ms
+          pause: 6000,    // pause in ms every iteration
+
+          responsive: [{
+            breakpoint: 1200,
+            settings: {
+              item: 1       
+              }
+            }]
+      });
+      
+      $("#btn-testimonials-prev").on("click", function(){
+        testimonialsSlider.goToPrevSlide();
       });
 
-      $(window).scroll(function () {
-        checkSection();
+      $("#btn-testimonials-next").on("click", function(){
+        testimonialsSlider.goToNextSlide();
       });
-      */
-  </script>
+
+    });
+</script>

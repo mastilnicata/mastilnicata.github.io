@@ -50,12 +50,29 @@ collections:
       - antonia.html
   books:
     books: true
+  testimonials:
+    output: false
+  services:
+    output: true
+    order:
+      - consultation.html
+      - reviewing.html
+      - rewriting.html
+      - editing.html
+      - correcting.html
+      - publishing
+  chart_info:
+    output: false
 
 defaults:
   - scope:
       type: "people"
     values:
       layout: "about-person"
+  - scope:
+      type: "services"
+    values:
+      layout: "our-services"
 
 # Exclude from processing.
 # The following items will not be processed, by default.

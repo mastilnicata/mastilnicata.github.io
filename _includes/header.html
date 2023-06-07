@@ -5,7 +5,7 @@
             <div class="col-12">
                 <nav class="main-nav"  id="pagetop">
                     <!-- ***** Logo Start ***** -->
-                    <a href="//{{ site.homepage }}" class="logo">
+                    <a href="/{{ site.homepage }}" class="logo">
                         <!--Edu Meeting-->
                         <!--<span class="mastilnitsata responsive-logo"></span>-->
                         <span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>
@@ -16,11 +16,9 @@
                         <li class="scroll-to-section"><a href="/{{ site.homepage }}" class="active">Начало</a></li>
                         <li class="has-sub"><a href="javascript:void(0)">Как помагаме</a>
                             <ul class="sub-menu">
-                                <li><a href="#">Редакция</a></li>
-                                <li><a href="#">Корекция</a></li>
-                                <li><a href="#">Рецензия/Консултация</a></li>
-                                <li><a href="#">Творческо писане</a></li>
-                                <li><a href="#">Авторови работилници</a></li>
+                                {% for service in site.services %}
+                                    <li><a href="{{ service.url }}">{{ service.text }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
                         

@@ -67,7 +67,7 @@
 	    $(document).on("scroll", onScroll);
 	    
 	    //smoothscroll
-	    $('.scroll-to-section a[href^="#"]').on('click', function (e) {
+	    $('.scroll-to-section a[href^="#"], a.scroll-to-section[href^="#"]').on('click', function (e) {
 	        var menuheight = 80; //$("#main-menu").height();
 			var subheaderheight = 0;
 			if($(".subheader").length > 0)
@@ -95,6 +95,7 @@
 	            $(document).on("scroll", onScroll);
 	        });*/
 			console.log("Scrolling to " + target + " at " + scroll_to + " (menu height: " + menuheight + ", sub height: " + subheaderheight + ", elm top offset: " + target_element.offset().top + ")");
+			window.location.hash = target;
 			window.scrollTo({top: scroll_to, behavior: "smooth"});
 	    });
 	});
@@ -351,52 +352,6 @@
 		}
 	  })();	  
 	  // end accordion behaviour
-
-		// owlCarousel
-		$('.owl-service-item').owlCarousel({
-			items:3,
-			loop:true,
-			dots: true,
-			nav: true,
-			autoplay: true,
-			autoplaySpeed: 1000,
-			autoWidth: false,
-			margin:30,
-			responsive:{
-				0:{
-					items:1
-				},
-			//	600:{
-			//		items:2
-			//	},
-				1000:{
-					items:2
-				}
-			}
-		});
-
-		$('.owl-courses-item').owlCarousel({
-			items:4,
-			loop:true,
-			dots: true,
-			nav: true,
-			autoplay: true,
-			autoplaySpeed: 1000,
-			autoWidth: false,
-			margin:30,
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:2
-				},
-				1000:{
-					items:4
-				}
-			}
-		});
-		//end owlCarousel
 
 	// click on filters (TODO: what's this?)
 	$('.filters ul li').click(function(){

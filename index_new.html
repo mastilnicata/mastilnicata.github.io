@@ -17,7 +17,10 @@ layout: default
             <div class="caption">
           <!--<h6>Hello Students</h6>-->
           <h2>Дясната ви ръка в писането</h2>
-          <p>"Мастилницата" е място, където може да проверите дали ръкописът ви е готов за чужди очи. Където заедно ще поговорим за силните и слабите му стани и за това какво още има да се свърши по него. Където ще го редактираме задълбочено и съвестно, така че да заблести. Където ще ви дадем съвети за пътя към издаването му и дори ще ви помогнем с намирането на издател.</p>
+          <p>
+            "Мастилницата" е място, където може да проверите дали ръкописът ви е готов за чужди очи. Да поговорим за силните и слабите му страни и какво още има да се свърши по него. Да го пренапишем и/или редактираме  съвестно и безкомпромисно до жестокост, която да се отплати. Да ви дадем съвети за пътя към издаването му и да ви помогнем с намирането на издател.
+            <a href="#services" class="scroll-to-section">Вижте как!</a>
+          </p>
           <div class="main-button-red">
               <div class="scroll-to-section">
                 <a href="#contact">
@@ -25,7 +28,13 @@ layout: default
                 Пишете ни сега!
               </a></div>
           </div>
-      </div>
+          
+          
+
+        
+        </div>
+
+
           </div>
         </div>
       </div>
@@ -33,147 +42,124 @@ layout: default
 </section>
 <!-- ***** Main Banner Area End ***** -->
 
-<!-- Our services chart -->
-<style>
-  .ourservices .chart-container {
-    display: flex;
-    justify-content: space-around;
-    font-family: 'AlegreyaSansRegular', 'sans-serif';
-  }
-
-  .ourservices .chart-part {
-    /*background-color: beige;*/
-    text-align: center;
-  }
-
-  .ourservices .chart-part .title {
-    font-size: 21px;
-    font-weight: 700;
-  }
-  
-  .ourservices .chart-part.reddish .title {
-    color: #dc6068;
-  }
-
-  .ourservices .chart-part.orangish .title {
-    color: #ec8d4c;
-  }
-
-  .ourservices .chart-part.purplish .title {
-    color: #774e92;
-  }
-
-  .ourservices .chart-part.yellowish .title {
-    color: #d9dba4;
-  }
-  
-</style>
-<section class="ourservices">
+<!--Our services chart -->
+<section id="services" class="services" style="background-color: #1b031c;"> <!-- -->
   <div class="container">
     <div class="row">
       <div class="col-12 chart-container">
-        <div class="chart-part reddish">
-          <div class="title">Editing</div>
-          <div class="text">Complete book editing</div>
-          <div class="icon">icon</div>
-          <div class="arrow">V</div>
-          <div class="items">
-            <ul>
-              <li>one</li>
-              <li>two</li>
-              <li>three</li>
-              <li>four</li>
-            </ul>
-          </div>
+        <div class="section-heading">
+          <h2>What we can do for your book</h2>
         </div>
-        <div class="chart-part orangish">
-          <div class="title">Proofing</div>
-          <div class="text">Text proofing</div>
-          <div class="icon">icon</div>
-          <div class="arrow">V</div>
-          <div class="items">
-            <ul>
-              <li>one</li>
-              <li>two</li>
-              <li>three</li>
-              <li>four</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="chart-part purplish">
-          <div class="title">Consultation</div>
-          <div class="text">Individual work</div>
-          <div class="icon">icon</div>
-          <div class="arrow">V</div>
-          <div class="items">
-            <ul>
-              <li>one</li>
-              <li>two</li>
-              <li>three</li>
-              <li>four</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="chart-part yellowish">
-          <div class="title">Translation</div>
-          <div class="text">Translation editing</div>
-          <div class="icon">icon</div>
-          <div class="arrow">V</div>
-          <div class="items">
-            <ul>
-              <li>one</li>
-              <li>two</li>
-              <li>three</li>
-              <li>four</li>
-            </ul>
-          </div>
-        </div>        
+        <div>
+        {% assign chart_texts = site.chart_info | where:"item-id", "our_services" | first %}
+        {% include chart.html steps=site.services texts=chart_texts.side_texts %}
+      </div>
       </div>
     </div>
   </div>
 </section>
 <!--/Our services chart -->
 
-<section class="services">
+<style>
+  .lightslider-btn-container {
+    position: relative; 
+    width: 70px;    
+  }
+
+  .lightslider-btn-container i {
+    margin: 0;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    top: 50%;
+    color: #1e1e1e;
+    font-size: 25px;
+    font-weight: 700;
+    background-color: #cfcfcf;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .lightslider-btn-container-prev {
+
+  }
+
+  .lightslider-btn-container-next {
+
+  }
+
+  .slider-container
+  {
+    display:flex; 
+    /*padding-top: 30px;*/
+  }
+
+  #testimonials-slider li {
+    height: 350px; 
+    text-align: center;
+    background-color: #b6002e; 
+    border-radius: 20px;
+    color: #cfcfcf;
+    padding: 30px;
+  }
+
+  #testimonials-slider li img {
+    margin: 0 auto; 
+    width:78px; 
+    height: 78px; 
+    border-radius: 50%;
+  }
+
+  .testimonial-title {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .testimonial-text {
+    font-size: 16px;
+  }
+  .slider-container {
+    padding-top: 50px; 
+    padding-bottom: 30px;
+  }
+</style>
+<!--
+1. adjust to css
+2. remove all owl shit
+3. fix settings, speed etc
+-->
+<section id="testimonials" class="testimonials">
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
-      <div class="owl-service-item owl-carousel">
-      
-        <div class="item">
-          <div class="icon">
-            <img src="assets/images/test1.png" alt="">
-          </div>
-          <div class="down-content">
-            <h4>Гергана Русинова, "Истории с коне"</h4>
-            <p>Вярвам, че когато следваш мечта, всяка среща по пътя не е случайна. Срещата ми с Антония Апостолова е от този вид. Антония успя да подреди мислите и думите ми с онзи деликатен и фин похват, който притежават само хората с огромна почит към красивото словото. </p>
-          </div>
-        </div>
-        
-        <div class="item">
-          <div class="icon">
-            <img src="assets/images/service-icon-02.png" alt="">
-          </div>
-          <div class="down-content">
-            <h4>Best Teachers</h4>
-            <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
-          </div>
-        </div>
-        
-        <div class="item">
-          <div class="icon">
-            <img src="assets/images/service-icon-03.png" alt="">
-          </div>
-          <div class="down-content">
-            <h4>Best Students</h4>
-            <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
-          </div>
-        </div>
-        
-      </div>
+
+    <div class="col-12 slider-container">
+      <span id="btn-testimonials-prev" class="lightslider-btn-container lightslider-btn-container-prev">
+        <i class="fas fa-angle-left"></i>
+      </span>
+      <span style="width:100%; padding-left: 50px; padding-right: 50px;">
+
+          <ul id="testimonials-slider">
+            {% for testimonial in site.testimonials %}
+              <li>
+                  <img src="/assets/images/testimonials/{{ testimonial.image }}" />
+                <div class="testimonial-title">
+                  {{ testimonial.name }}, {{ testimonial.ref }}
+                </div>
+                <div class="testimonial-text">
+                  {{ testimonial.text }}
+                </div>
+              </li>
+              {% endfor %}
+          </ul>
+      </span>
+      <span id="btn-testimonials-next" class="lightslider-btn-container lightslider-btn-container-prev">
+        <i class="fas fa-angle-right" style="left:-50px"></i></span>
     </div>
+
   </div>
 </div>
 </section>
@@ -360,283 +346,6 @@ layout: default
             </div>
         </article>
     </div>
-    </div>
-  </div>
-</div>
-</section>
-
-<section class="our-courses" id="courses">
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="section-heading">
-        <h2>Our Popular Courses</h2>
-      </div>
-    </div>
-    <div class="col-lg-12">
-      <div class="owl-courses-item owl-carousel">
-        <div class="item">
-          <img src="assets/images/course-01.jpg" alt="Course One">
-          <div class="down-content">
-            <h4>Morbi tincidunt elit vitae justo rhoncus</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$160</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-02.jpg" alt="Course Two">
-          <div class="down-content">
-            <h4>Curabitur molestie dignissim purus vel</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$180</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-03.jpg" alt="">
-          <div class="down-content">
-            <h4>Nulla at ipsum a mauris egestas tempor</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$140</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-04.jpg" alt="">
-          <div class="down-content">
-            <h4>Aenean molestie quis libero gravida</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$120</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-01.jpg" alt="">
-          <div class="down-content">
-            <h4>Lorem ipsum dolor sit amet adipiscing elit</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$250</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-02.jpg" alt="">
-          <div class="down-content">
-            <h4>TemplateMo is the best website for Free CSS</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$270</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-03.jpg" alt="">
-          <div class="down-content">
-            <h4>Web Design Templates at your finger tips</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$340</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-04.jpg" alt="">
-          <div class="down-content">
-            <h4>Please visit our website again</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$360</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-01.jpg" alt="">
-          <div class="down-content">
-            <h4>Responsive HTML Templates for you</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$400</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-02.jpg" alt="">
-          <div class="down-content">
-            <h4>Download Free CSS Layouts for your business</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$430</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-03.jpg" alt="">
-          <div class="down-content">
-            <h4>Morbi in libero blandit lectus cursus</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$480</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/course-04.jpg" alt="">
-          <div class="down-content">
-            <h4>Curabitur molestie dignissim purus</h4>
-            <div class="info">
-              <div class="row">
-                <div class="col-8">
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <div class="col-4">
-                   <span>$560</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

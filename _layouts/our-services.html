@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include head.html %}
+</head>
+
+
+<body style="background-image:url('/assets/images/meetings-page-bg.jpg');">
+  
+  {% include header.html %}
+
+
+  <section class="heading-page header-text" id="top"
+    style="background: linear-gradient(
+        rgba(0, 0, 0, 0.7), 
+        rgba(0, 0, 0, 0.7)
+      ),url('{{page.banner_image}}'); background-repeat: no-repeat; height:550px; background-size: cover;">
+    <div class="container" style="position: relative; top: -98px;">
+      <div class="row">
+        <div class="col-lg-12">
+          <h6>Our services</h6>
+          <h2 style="text-transform: none; font-size: 50px;"> <img src="{{page.page_icon}}"
+              style="    height: 55px;
+              width: auto;
+              margin-right: 10px;" /> <span class="persontitle">{{ page.text }}</span></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-5 col-7 mt-3 mb-3 mx-auto">
+          {{ page.intro }}
+          <div class="main-button-red mt-5">
+          <div class="scroll-to-section">
+            <a href="#more-about-service">
+            See more!
+          </a></div>
+        </div>
+
+        </div>
+      </div>
+
+      
+    </div>
+<!--
+
+-->
+  </section>
+  <div class="container">
+    <div class="row" id="more-about-service">
+      <div class="col-lg-5 col-7 mt-3 mb-3 mx-auto">
+        {{ page.service_content }}
+      </div>
+    </div>
+  </div>
+
+  <div class="main-button-red mx-auto my-5">
+    <div class="scroll-to-section">
+      <a href="/{{ site.homepage }}#contact">
+      <span class="contact-button-logo mastilnitsata mastilnitsata-mastilnitsata-logo-inkpot"></span>
+      Пишете ни сега!
+    </a></div>
+</div>
+
+  {% include footer.html %}
+
+  {% include footscripts.html %}
+  <script>
+    //alert("{{page.url}}");
+  </script>
+</body>
+
+</html>
