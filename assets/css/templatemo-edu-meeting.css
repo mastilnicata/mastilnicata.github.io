@@ -51,6 +51,21 @@ font & reset css
   src: url('../fonts/Alegreya_Sans/AlegreyaSans-Regular.ttf');
 }
 
+@font-face {
+  font-family: "laptev";
+  src: url("../fonts/laptev/Laptev_Brush.otf")
+}
+
+@font-face {
+  font-family: "karano";
+  src: url("../fonts/karano/KaranoFree-Regular.otf")
+}
+
+@font-face {
+  font-family: "rafale";
+  src: url("../fonts/rafale/rafale-bg.otf")
+}
+
 /*
 ==============================================
 NEW STUFF
