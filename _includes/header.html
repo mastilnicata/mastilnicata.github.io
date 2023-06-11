@@ -5,7 +5,7 @@
             <div class="col-12">
                 <nav class="main-nav"  id="pagetop">
                     <!-- ***** Logo Start ***** -->
-                    <a href="/{{ site.homepage }}" class="logo">
+                    <a href="/{{ site.homepage }}" class="logo" style="font-size: 25px; top: 0;">
                         <!--Edu Meeting-->
                         <!--<span class="mastilnitsata responsive-logo"></span>-->
                         <!--<span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>-->
@@ -15,10 +15,10 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li class="scroll-to-section"><a href="/{{ site.homepage }}" class="active">Начало</a></li>
-                        <li class="has-sub"><a href="javascript:void(0)">Как помагаме</a>
+                        <li class="has-sub"><a href="javascript:void(0)">Какво правим</a>
                             <ul class="sub-menu">
                                 {% for service in site.services %}
-                                    <li><a href="{{ service.url }}">{{ service.text }}</a></li>
+                                    <li><a href="{{ service.url  | relative_url | remove : '.html' }}">{{ service.text }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -26,13 +26,14 @@
                         <li class="has-sub"><a href="javascript:void(0)">Кои сме</a>
                             <ul class="sub-menu">
                             {% for person in site.people %}
-                            <li><a href="/people/{{ person.title | downcase }}">{{ person.firstname }} {{ person.lastname }}</a></li>
+                            <!--<script>alert("{{person.url | relative_url | remove : '.html'}}");</script>-->
+                            <li><a href="{{person.url | relative_url | remove : '.html'}}">{{ person.firstname }} {{ person.lastname }}</a></li>
                             {% endfor %}
                             </ul>
                         </li>
 
 
-                        <li class="scroll-to-section"><a href="#courses">Новини</a></li> 
+                        <!--<li class="scroll-to-section"><a href="#courses">Новини</a></li> -->
                         <li class="has-sub">
                             <a href="javascript:void(0)">Литературни</a>
                             <ul class="sub-menu">

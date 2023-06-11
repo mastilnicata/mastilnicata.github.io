@@ -43,15 +43,33 @@ exclude:
   - old.zip
 
 collections_dir: _info
+
 collections:
+  # who are we
   people:
     output: true
     order:
       - antonia.html
+  
+  # books by our authors
   books:
     books: true
+  
+  # books we worked on
+  books-by-us:
+    output: false
+    order:
+      - hunter.html
+      - dancing-with-water.html
+      - our-history.html
+      - hagabula.html
+      - the-cat.html
+
+  # testimonials
   testimonials:
     output: false
+  
+  # our services
   services:
     output: true
     order:
@@ -61,6 +79,8 @@ collections:
       - editing.html
       - correcting.html
       - publishing
+  
+  # information in displayed charts
   chart_info:
     output: false
 

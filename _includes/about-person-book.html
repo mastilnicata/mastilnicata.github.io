@@ -1,0 +1,20 @@
+<div class="about-person-book">
+    <span class="book-cover">
+    {% if include.book.link %}<a href="{{ include.book.link }}" target="_blank">{% endif %}
+    <img src="/assets/images/books/{{ include.book.cover }}">
+    {% if include.book.link %}</a>{% endif %}
+    </span>
+    <span style="position: relative; top: -7px; margin-bottom: -7px;">
+        "<strong>{% if include.book.link %}<a href="{{ include.book.link }}" target="_blank">{% endif %}{{ include.book.title }}{% if include.book.link %}</a>{% endif %}</strong>" ({{ include.book.publishing }}, {{ include.book.year }}) - {{ include.book.type }}
+        <ul style="list-style-image: url('/assets/images/trophy.png');">
+            {% for award in include.book.awards %}
+                <li>{{ award }}</li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for info_line in include.book.info %}
+                <li>{{ info_line }}</li>
+            {% endfor %}
+        </ul>        
+    </span>
+</div>

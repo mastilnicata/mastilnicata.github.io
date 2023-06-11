@@ -143,27 +143,10 @@ TODO:
       <div class="col-lg-8 mx-auto pt-3 pb-3" style="line-height: 1.8; padding-bottom: 65px !important;">
 
         <p><strong style="font-size:32px;">Книги от {{ page.firstname }} {{ page.lastname }}</strong>:</p>
-
         {% for book in page.books-of %}
           {% assign bookitem = site.books | where: "item-id", book  | first %}
-          <div style="display: flex; align-items: flex-start; margin: 48px 0px 0px 0px">
-            <span style="margin-right: 14px;">
-              <a href="{{ bookitem.link }}" target="_blank"><img src="/assets/images/books/{{ bookitem.cover }}" style="height:132px; width:92px;     box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;"></a>
-          </span>
-              <span style="position: relative; top: -7px; margin-bottom: -7px;">
-                  "<strong><a href="{{ bookitem.link }}" target="_blank">{{ bookitem.title }}</a></strong>" ({{ bookitem.publishing }}, {{ bookitem.year }}) - {{ bookitem.type }}
-                  <ul style="list-style-image: url('/assets/images/trophy.png');">
-                    {% for award in bookitem.awards %}
-                  <li>{{ award }}</li>
-                    {% endfor %}
-                  </ul>
-              </span>
-        
-          </div>          
-
+          {% include about-person-book.html book=bookitem %}
         {% endfor %}
-
-
       </div>
     </div>
   </section>
