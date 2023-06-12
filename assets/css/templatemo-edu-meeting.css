@@ -1120,6 +1120,20 @@ banner
   font-size: 22px;
 }
 
+@media screen and (max-width: 1110px) {
+  .main-banner .caption {
+    top: 69px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .main-banner .caption {
+    top: 110px;
+  }
+  section.main-banner, section.main-banner video{
+    height:615px;
+  }
+}
+
 @media screen and (max-width: 767px) {
 
   .main-banner .caption h6 {
@@ -1949,10 +1963,11 @@ responsive
 
 @media (max-width: 992px) {
 
+  /*
   .main-banner .caption {
     top: 60%;
   }
-
+  */
   .main-banner .caption h2 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -1962,11 +1977,11 @@ responsive
   .main-banner .caption .main-button-red {
     margin-top: 15px;
   }
-
+  /*
   .services {
     margin-top: 60px;
   }
-
+  */
   section.upcoming-meetings {
     padding-top: 400px;
   }

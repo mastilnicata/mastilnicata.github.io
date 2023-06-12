@@ -35,30 +35,60 @@
 
       </div>
 
+      <style>
+        .service-content p {
+          line-height: 29px;
+          margin: 30px 0px;
+          text-align: left;
+        }
+        .service-content li {
+          text-align: left;
+        }
+
+        .side_images{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+        }
+        .side_img_text
+        {
+          text-align: right;
+          font-style: italic;
+          font-size: 16px;
+        }
+      </style>
+      {% assign images_count = 0 %}
+      {% assign main_col_width = "col-10" %}
+      {% assign side_col_width = "" %}
+      {% if page.side_images %}
+        {% assign images_count = page.side_images | size %}
+        {% if images_count > 0 %}
+          {% assign main_col_width = "col-lg-9 col-md-12" %}
+          {% assign side_col_width = "col-lg-3 col-md-12" %}
+        {% endif %}
+      {% endif %}
       <div class="row">
-        <div class="col-10 mt-3 mb-3 mx-auto">
-         <!-- {{ page.intro }}
-          <div class="main-button-red mt-5">
-          <div class="scroll-to-section">
-            <a href="#more-about-service">
-            See more!
-          </a></div>
-        </div>
-      -->
-        <style>
-          .service-content p {
-            line-height: 29px;
-            margin: 30px 0px;
-            text-align: left;
-          }
-          .service-content li {
-            text-align: left;
-          }
-        </style>
+        <div class="{{ main_col_width }} mt-3 mb-3 mx-auto">
+        
           <div class="service-content">
             {{ page.content }}
           </div>
         </div>
+        <!-- $('.article-post img').wrap(function(index) { return '<a href="'+$(this).attr('src')+'" data-lightbox="image-1"></a>'; }); -->
+        {% if images_count > 0 %}
+        <div class="{{ side_col_width }} side_images">
+          {% for img in page.side_images %}
+          <div>
+            <div>
+          <a href="{{img.src}}" title="{{ img.text }}" data-lightbox="side_images">
+          <img src="{{img.src}}" />
+          </a>
+          </div>
+          <div class="side_img_text">{{ img.text }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
       <div class="main-button-red mx-auto my-5">
         <div class="scroll-to-section">
