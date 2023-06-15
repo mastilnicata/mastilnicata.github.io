@@ -78,10 +78,10 @@
 			console.log("scrolling to. subheader height: " + subheaderheight)
 	        e.preventDefault();
 	        $(document).off("scroll");
-	        $('.scroll-to-section a').each(function () {
-	            $(this).removeClass('active');
-	        })
-	        $(this).addClass('active');
+	        //$('.scroll-to-section a').each(function () {
+	        //    $(this).removeClass('active');
+	        //})
+	        //$(this).addClass('active');
 	      
 	        var target = this.hash,
 	        menu = target;
@@ -109,13 +109,13 @@
 				var refElement = $(currLink.attr("href"));
 				if(refElement && refElement.position && refElement.position() && refElement.position().top && refElement.height && refElement.height())
 				{
-					if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-						$('.nav ul li a').removeClass("active");
-						currLink.addClass("active");
-					}
-					else{
-						currLink.removeClass("active");
-					}
+					//if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+					//	$('.nav ul li a').removeClass("active");
+					//	currLink.addClass("active");
+					//}
+					//else{
+					//	currLink.removeClass("active");
+					//}
 				}
 			}
 	    });
@@ -226,13 +226,13 @@
 				var refElement = $(href);
 				if(refElement && refElement.position && refElement.position() && refElement.position().top && refElement.height && refElement.height())
 				{
-					if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-						$('.nav ul li a').removeClass("active");
-						currLink.addClass("active");
-					}
-					else{
-						currLink.removeClass("active");
-					}
+					//if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+					//	$('.nav ul li a').removeClass("active");
+					//	currLink.addClass("active");
+					//}
+					//else{
+					//	currLink.removeClass("active");
+					//}
 				}
 			}
 	    });		
@@ -355,8 +355,8 @@
 
 	// click on filters (TODO: what's this?)
 	$('.filters ul li').click(function(){
-		$('.filters ul li').removeClass('active');
-		$(this).addClass('active');
+		//$('.filters ul li').removeClass('active');
+		//$(this).addClass('active');
 		
 		var data = $(this).attr('data-filter');
 		if($grid.isotope){
@@ -387,7 +387,7 @@
 	if($('.menu-trigger').length){
 		$(".menu-trigger").on('click', function() {	
 			//console.log("MENU!!")
-			$(this).toggleClass('active');
+			//$(this).toggleClass('active');
 			$('.header-area .nav').slideToggle(200);
 		});
 	}
