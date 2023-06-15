@@ -1,4 +1,15 @@
   <!-- ***** Header Area Start ***** -->
+  <style>
+    li.has-sub a  {
+        color: blue;
+    }
+    .sub-menu a.active {
+        color: green !important;
+    }
+    .sub-menu a.hover {
+        color: red !important;
+    }
+</style>
   <header id="main-menu" class="header-area header-sticky" style="z-index:10000">
     <div class="container">
         <div class="row">
@@ -23,17 +34,38 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
+                    {% assign current_url = page.url | relative_url | remove : '.html' %}
+
                     <ul class="nav" style="font-family: karano">
-                        <li class="scroll-to-section"><a href="/{{ site.homepage }}" class="active">Начало</a></li>
-                        <li class="has-sub"><a href="javascript:void(0)">Какво правим</a>
+                        {% if current_url=="" or current_url=="/" or current_url=="/index_new" %}
+                            {% assign active_class="active" %}
+                        {% else %}
+                            {% assign active_class="" %}
+                        {% endif %}
+                        <li class="scroll-to-section"><a href="/{{ site.homepage }}" class="{{ active_class }}">Начало</a></li>
+ 
+                        <li class="has-sub"><a href="javascript:void(0)" class="active">Какво</a>
                             <ul class="sub-menu">
                                 {% for service in site.services %}
-                                    <li><a href="{{ service.url  | relative_url | remove : '.html' }}">{{ service.text }}</a></li>
+                                    {% assign service_url = service.url | relative_url | remove : '.html' %}
+                                    {% if current_url == service_url %}
+                                    {% assign active_class="active" %}
+                                    {% else %}
+                                        {% assign active_class="" %}
+                                    {% endif %}
+                                    <li><a href="{{service_url}}" class="{{active_class}}">{{ service.text }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
-                        
-                        <li class="has-sub"><a href="javascript:void(0)">Кои сме</a>
+
+                        {% if current_url=="/how" %}
+                            {% assign active_class="active" %}
+                        {% else %}
+                            {% assign active_class="" %}
+                        {% endif %}                        
+                        <li><a href="/how" class="{{ active_class }}">Как</a></li>
+
+                        <li class="has-sub"><a href="javascript:void(0)">Кои</a>
                             <ul class="sub-menu">
                             {% for person in site.people %}
                             <!--<script>alert("{{person.url | relative_url | remove : '.html'}}");</script>-->
