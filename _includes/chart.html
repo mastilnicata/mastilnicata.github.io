@@ -148,6 +148,7 @@ c_margin + (c_height /2)
                     color_hover: "{{ step.color_hover }}",
                     text: "{{ step.text }}",
                     url: "{{ step.url  | relative_url | remove : '.html' }}",
+                    tooptip: "{{ step.tooltip }}",
                     
                     //Dotted line, if set, is drawn at the far end of the path (connected from outside to x2,y2 - x3,y3 - x4,y4)
                     dotted: ("{{ step.dotted }}".trim().toLowerCase() != "true")? null: [
@@ -201,7 +202,8 @@ c_margin + (c_height /2)
                 color: "{{ step.color }}",
                 color_hover: "{{ step.color_hover }}",
                 text: "{{ step.text }}",
-                url: "{{ step.url }}"
+                url: "{{ step.url }}",
+                tooptip: "{{ step.tooltip }}"
             }
         );
         if("{{ step.icon }}".indexOf("/") >= 0)
@@ -234,12 +236,83 @@ c_margin + (c_height /2)
         cursor.y = e.offsetY;
     });
 
+    canvas.addEventListener ("mouseout", (e) => {
+        cursor.x = undefined;
+        cursor.y = undefined;
+    });
+
+
     canvas.addEventListener("mousedown", (e) => {
         if(e.button == 0 && activelink)
         {
             window.location.href = activelink;
         }
     });
+
+    function drawTooltip(text, px_height, text_color, fill_color, border_color)
+    {
+    var
+        tip_height = 10,
+        tip_width = 10,
+        tooltip_y_offset = 20,
+        tooltip_x_offset = 10;
+        
+        if(border_color)
+        ctx.strokeStyle = border_color;
+    ctx.fillStyle = fill_color;
+    ctx.lineWidth = 1;
+    
+    text_margin = 30;
+    ctx.font = px_height + "px Arial";
+    ctx.textAlign = "center";
+    var tooltip_width = ctx.measureText(text).width + text_margin;
+    var tooltip_height = px_height + text_margin;
+    
+    var tooltip_shift_x = 0;
+    var beyond_left_edge = (((tooltip_width/2) - (tip_width)) - cursor.x);
+    var beyond_right_edge = (canvas.width - (cursor.x + (tooltip_width/2) + tip_width));
+    if(beyond_left_edge > 0)
+    {
+        tooltip_shift_x = beyond_left_edge;
+    }
+    else if(beyond_right_edge < 0)
+    {
+            tooltip_shift_x = beyond_right_edge;
+    }
+    /*   
+                           x3,y3
+    x1,y1 / x8,y8           / \                 x5,y5
+        [------------------/   \------------------]
+        |              x2,y2   x4,y4              |
+        |                                         |
+        |                                         |
+        [-----------------------------------------]
+        x7,y7                                     x6,y6
+    */
+    
+        ctx.beginPath();
+    if (cursor.x && cursor.y){
+        /*x1,y1*/ctx.moveTo(cursor.x-(tooltip_width/2) + tooltip_x_offset+ tooltip_shift_x, cursor.y + tip_height + tooltip_y_offset);
+        /*x2,y2*/ctx.lineTo(tooltip_shift_x+ cursor.x - (tip_width/2) + tooltip_x_offset - tooltip_shift_x,  cursor.y + tip_height + tooltip_y_offset);
+        /*x3,y3*/ctx.lineTo(tooltip_shift_x+ cursor.x + tooltip_x_offset - tooltip_shift_x, cursor.y + tooltip_y_offset);
+        /*x4,y4*/ctx.lineTo(tooltip_shift_x+  cursor.x + (tip_width/2) + tooltip_x_offset - tooltip_shift_x,  cursor.y + tip_height + tooltip_y_offset);
+        /*x5,y5*/ctx.lineTo(cursor.x + (tooltip_width/2) + tooltip_x_offset +tooltip_shift_x,  cursor.y + tip_height + tooltip_y_offset);
+        /*x6,y6*/ctx.lineTo(cursor.x + (tooltip_width/2) + tooltip_x_offset + tooltip_shift_x,  cursor.y + tooltip_height + tooltip_y_offset);
+        /*x7,y7*/ctx.lineTo(cursor.x-(tooltip_width/2) + tooltip_x_offset + tooltip_shift_x, cursor.y + tooltip_height + tooltip_y_offset);
+        /*x8,y8*/ctx.lineTo(cursor.x-(tooltip_width/2) + tooltip_x_offset + tooltip_shift_x, cursor.y + tip_height + tooltip_y_offset);
+        ctx.fill();
+            //ctx.fillText("width:" + ctx.measureText(txt).width, 10, 100);
+        if(border_color)
+            ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = text_color;
+        ctx.fillText(text , cursor.x + tooltip_x_offset + tooltip_shift_x, cursor.y + (tooltip_height/2) + tooltip_y_offset + tip_height);
+
+        //ctx.beginPath();
+        //ctx.fillStyle = "black";
+        //ctx.fillText("width: " + tooltip_width + ", x: " + cursor.x + ", canvas width: " + canvas.width + ", beyond_right_edge: " + beyond_right_edge + ",beyond_left_edge: " + beyond_left_edge, 300, 100)
+        }
+    }
 
     function drawChart(){
         activelink = "";
@@ -280,10 +353,8 @@ c_margin + (c_height /2)
             else
             {
                 fill = paths[p].color;
-                
             }
-            Object.assign(ctx, { fillStyle: fill }).fill(path);
-            
+            Object.assign(ctx, { fillStyle: fill }).fill(path);          
             
             // ========= texts and icons =========
             
@@ -322,14 +393,14 @@ c_margin + (c_height /2)
                     posy -= 32;
                 }
                 */
-                ctx.drawImage(icon_images[p], posx + - (icon_size/2) , posy - icon_size - text_icon_buff, icon_size, icon_size);
+                ctx.drawImage(icon_images[p], posx - (icon_size/2) , posy - icon_size - text_icon_buff, icon_size, icon_size);
             }
             //else treat the icon as unicode for Font Awesome
             else {
                 ctx.fillStyle = "white"
                 ctx.font = icon_size + "px 'Font Awesome 6 Free'";
                 //ctx.fillText(paths[p].icon, c_width * p + c_width/2 + tip_size, c_margin + text_margin * 3);
-                ctx.fillText(paths[p].icon, posx, posy - text_icon_buff - 2);
+                ctx.fillText(paths[p].icon, posx - ((p==0)?(icon_size/2):0), posy - text_icon_buff - 2);
             }
 
             //step text
@@ -353,7 +424,7 @@ c_margin + (c_height /2)
                     i -= 2;
                     ctx.stroke();
                 }
-            }
+            }            
         }
         
         //draw the 2 side-lines
@@ -407,6 +478,7 @@ c_margin + (c_height /2)
         if(cursorInPath >= 0)
         {
             canvas.style.cursor = "pointer";
+            drawTooltip(paths[cursorInPath].tooptip, 16, "white", paths[cursorInPath].color, "white");
         }
         else
         {

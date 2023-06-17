@@ -11,12 +11,15 @@
             <div class="col-12">
                 <nav class="main-nav"  id="pagetop">
                     <!-- ***** Logo Start ***** -->
-                    <a href="/{{ site.homepage }}" class="logo" style="font-size: 25px; top: 0;">
+                    <a href="/{{ site.homepage }}" class="logo">
+                        <div>
+                            <span class="mastilnitsata mastilnitsata-stilnica" style="font-size: 63px; vertical-align: middle;"></span>
+                        </div>
                         <!--Edu Meeting-->
                         <!--<span class="mastilnitsata responsive-logo"></span>-->
                         <!--<span class="mastilnitsata mastilnitsata-mastilnitsata-brand-inkpot"></span>-->
                         <!--<span class="mastilnitsata mastilnitsata-new-m-logo"></span>-->
-                        <div style="text-transform: none !important;
+                        <!--<div style="text-transform: none !important;
                         text-shadow: -2px 9px 12px rgba(0, 0, 0, 0.81); font-weight: normal;">
                             <span class="mastilnitsata mastilnitsata-hipster-m" style="font-size:60px;"></span>
                             <span style="font-family: karano !important;
@@ -24,15 +27,16 @@
                             position: relative;
                             left: -6px;;
                             top: 4px;">СТИЛница</span>
-                            </div>
+                            </div>-->
 
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     {% assign current_url = page.url | relative_url | remove : '.html' %}
+                    {% assign site_homepage = site.homepage | relative_url | remove : '.html' %}
 
                     <ul class="nav" style="font-family: karano">
-                        {% if current_url=="" or current_url=="/" or current_url contains site.homepage %}
+                        {% if current_url=="" or current_url=="/" or current_url contains site_homepage %}
                             {% assign active_class="active" %}
                         {% else %}
                             {% assign active_class="" %}
