@@ -41,6 +41,9 @@
         drawChart();
     }
     */
+    var img_bg = new Image();
+    img_bg.src = "/assets/images/backgrounds/consultation-2.jpg";
+
     function wrap_text(text, fontName, fontSize, fontColor, fontweight, x, y, max_width) {
         //var max_width  = 100;
         //var fontSize   =  12;
@@ -149,6 +152,9 @@ c_margin + (c_height /2)
                     text: "{{ step.text }}",
                     url: "{{ step.url  | relative_url | remove : '.html' }}",
                     tooptip: "{{ step.tooltip }}",
+                    use_image_for_chart: "{{ step.use_image_for_chart }}".toUpperCase().trim() == "TRUE",
+                    img: new Image(),
+                    img_src: "{{ step.banner_image }}",
                     
                     //Dotted line, if set, is drawn at the far end of the path (connected from outside to x2,y2 - x3,y3 - x4,y4)
                     dotted: ("{{ step.dotted }}".trim().toLowerCase() != "true")? null: [
@@ -203,7 +209,10 @@ c_margin + (c_height /2)
                 color_hover: "{{ step.color_hover }}",
                 text: "{{ step.text }}",
                 url: "{{ step.url }}",
-                tooptip: "{{ step.tooltip }}"
+                tooptip: "{{ step.tooltip }}",
+                use_image_for_chart: "{{ step.use_image_for_chart }}".toUpperCase().trim() == "TRUE",
+                img: new Image(),
+                img_src: "{{ step.banner_image }}",
             }
         );
         if("{{ step.icon }}".indexOf("/") >= 0)
@@ -230,7 +239,20 @@ c_margin + (c_height /2)
             }
         })      
     {% endfor %}
-
+    
+    for(p = 0; p < paths.length; p++)
+    {
+        if(paths[p].img_src){
+            paths[p].img.onload = function() {
+                //paths[p].img_height = paths[p].img.height;
+                //paths[p].img_width = paths[p].img.width;
+                //paths[p].img_loaded = true;
+                //alert("h: " + paths[p].img_height + ", w: " + paths[p].img_width)
+            }
+            paths[p].img.src = paths[p].img_src
+        }
+    }
+    
     canvas.addEventListener("mousemove", (e) => {
         cursor.x = e.offsetX;
         cursor.y = e.offsetY;
@@ -346,15 +368,34 @@ c_margin + (c_height /2)
             path.closePath();
             if (cursor.x >= 0 && cursor.y >= 0 && ctx.isPointInPath(path, cursor.x, cursor.y))
             {
-                fill = paths[p].color_hover;
+                //--bg image instead of colour               
+                if(paths[p].use_image_for_chart && paths[p].img_src){
+                    //alert(p + "::" + paths[p].img.src)
+                    ctx.save();
+                    var bg_img_path = new Path2D();
+                    for(var i=0; i < points.length; i++)
+                    {
+                        bg_img_path.lineTo(points[i], points[++i]);
+                    }
+                    ctx.clip(bg_img_path);
+                    ctx.drawImage(paths[p].img, points[0] , points[1], c_width + tip_size, c_height + tip_size);
+                    ctx.restore();
+                }
+                //--bg image instead of colour
+                else
+                {
+                    fill = paths[p].color_hover;
+                    Object.assign(ctx, { fillStyle: fill }).fill(path);
+                }
                 cursorInPath = p;
                 activelink = paths[p].url;
             }
             else
             {
                 fill = paths[p].color;
+                Object.assign(ctx, { fillStyle: fill }).fill(path);
             }
-            Object.assign(ctx, { fillStyle: fill }).fill(path);          
+            //Object.assign(ctx, { fillStyle: fill }).fill(path);
             
             // ========= texts and icons =========
             

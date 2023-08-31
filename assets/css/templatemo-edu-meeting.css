@@ -859,6 +859,16 @@ header
   background-color: #1e1e1e;
 }
 
+.header-area .nav-logo-container
+{
+  line-height: 88px;
+}
+
+.header-area.header-sticky .nav-logo-container
+{
+  line-height: 71px !important;
+}
+
 .background-header .main-nav .menu-trigger.active span:before {
   background-color: #1e1e1e;
 }
@@ -979,6 +989,7 @@ header
     height: 0px;
     transition: all 0s;
   }
+
   .header-area .main-nav .nav li.submenu ul li a {
     font-size: 12px;
     font-weight: 400;
