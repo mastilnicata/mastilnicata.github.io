@@ -5,11 +5,10 @@
 layout: default
 ---
  <!-- ***** Main Banner Area Start ***** -->
- <section class="section main-banner" id="top" data-section="section1">
+ <section class="section main-banner" id="top" data-section="section1"> <!--style="height:700px; background-image: url('/assets/images/backgrounds/guillotine.jpg'); background-size: cover; background-repeat: no-repeat;"-->
   <video autoplay muted loop id="bg-video">
       <source src="assets/images/Ink-107242.mp4" type="video/mp4" />
   </video>
-
   <div class="video-overlay header-text">
       <div class="container">
         <div class="row">
@@ -18,13 +17,25 @@ layout: default
           <!--<h6>Hello Students</h6>-->
           <h2>Онова, което убиваме в ръкописа ви, го прави по-силен.</h2>
           <p>
-            "Стилницата" е място, където можем да проверим дали ръкописът ви е готов за гилотината на публиката.
+            СТИЛница е място, където ще установим дали ръкописът ви е готов за гилотината на публиката и ще го подготвим за нея. 
+            Ще прокараме скалпел през болните му места, преди оттам да мине този на критиката. Ще го разкървавим безмилостно с червеното мастило. Но в този болезнен процес до пълната му амнистия ще бъдем дясната ви ръка в писането.
+            <a href="#services" class="scroll-to-section" style="color: #C4772B; background-color: black; font-weight: bold;">Вижте как!</a><br/><br/>
+
+            СТИЛницата е бутикова услуга. Заемаме се <span class="highlighted-text2">само с ръкописи</span>, в които виждаме бъдещи талантливи книги. Такива, които убедено да
+            препоръчаме на издателствата. Да, издирваме гении. Впечатлете ни!
+
+            <!--
+
+            "СТИЛницата" е място, където можем да проверим дали ръкописът ви е готов за гилотината на публиката.
             Да обсъдим здравите и болните му места, между които трябва да мине скалпелът.
             Да го разкървавим безмилостно при редакцията.
             Да държим ръката ви по пътя към осиновяването му от издател.
-            <a href="#services" class="scroll-to-section" style="color: #d56d40;">Вижте как!</a><br/><br/>
-            "Стилницата" е бутикова услуга. Заемаме се <strong style="color: #d56d40; background: black;">само c ръкописи, в които вярваме</strong>. Такива, които бихме могли да си представим като бъдещи книги и да препоръчаме на издателствата.
+            
+
+
+            "СТИЛницата" е бутикова услуга. Заемаме се <strong style="color: #C4772B; background: black;">само c ръкописи, в които вярваме</strong>. Такива, които бихме могли да си представим като бъдещи книги и да препоръчаме на издателствата.
             Заинтригувайте ни!
+            -->
             
           </p>
           {% include contact-us-button.html %}
@@ -54,7 +65,7 @@ layout: default
     margin-bottom: 0px;
   }
 </style>
-<section id="services" class="services" style="background-color: #1b031c;"> 
+<section id="services" class="services" style="background-color: #1e2225;"> 
   <div class="container">
     <div class="row">
       <div class="col-12 chart-container">
@@ -114,9 +125,9 @@ layout: default
   #testimonials-slider li {
     height: 350px; 
     text-align: center;
-    background-color: #b6002e; 
+    background-color: #C4772B; 
     border-radius: 20px;
-    color: #cfcfcf;
+    color: white;
     padding: 30px;
   }
 
@@ -158,7 +169,7 @@ layout: default
     /* display: inline-flex; */
     /* justify-content: center; */
     margin: 40px 0px 0px 0px;
-">ХОРАТА, С КОИТО УСПЯХМЕ</h2>
+">НЯКОИ ОТ ЖЕРТВИТЕ И ПОРЪЧИТЕЛИТЕ НИ</h2>
     </div>
 
 
@@ -204,7 +215,7 @@ layout: default
 <!-- SEE ALSO, FLIPSTER: http://brokensquare.com/Code/jquery-flipster/demo/-->
 
 <!-- Books our team worked on -->
-<section id="books-by-our-team" class="books-by-our-team" style="background-color: #1b031c;"> 
+<section id="books-by-our-team" class="books-by-our-team" style="background: linear-gradient(180deg, rgba(56,56,59,1) 0%, rgba(109,110,118,1) 92%);"> 
   <div class="container">
     <div class="row">
       <div class="col-12 chart-container">
@@ -216,7 +227,7 @@ layout: default
         /* display: inline-flex; */
         /* justify-content: center; */
         margin: 40px 0px 40px 0px;
-    ">КНИГИ, ЧИЕТО РАЖДАНЕ АКУШИРАХМЕ</h2>
+    ">КНИГИ, ЗА КОИТО НОСИМ ВИНА</h2>
         </div>
         
 
@@ -224,7 +235,8 @@ layout: default
         <div>
           <div class="my-flipster">
             <ul>
-              {% for book in site.books-by-us %}
+              {% assign bookz = site.books-by-us | where: "visible", true %}
+              {% for book in bookz %}<!--visible: true-->
                 <li><a href="{{ book.link }}" target="_blank"><img src="/assets/images/books-by-us/{{ book.cover }}" /></a></li>
                 {% endfor %}
                 </ul>
@@ -530,7 +542,7 @@ layout: default
 
             <div class="row">
               <div class="col-lg-12">
-                <h2>СВЪРЖЕТЕ СЕ С НАС</h2>
+                <h2>НАМЕРЕТЕ НИ</h2>
               </div>
               <div class="col-lg-4">
                 <fieldset>
@@ -563,7 +575,7 @@ layout: default
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <button type="submit" id="form-submit" class="button">Изпрати сега!</button>
+                  <button type="submit" id="form-submit" class="button" style="background-color: #C4772B; font-weight: bold;">Натисни спусъка!</button>
                 </fieldset>
               </div>
             </div>
@@ -572,7 +584,7 @@ layout: default
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="right-info">
+      <div class="right-info" style="background-color: #C4772B;">
         <ul>
           <li>
             <h6>Телефон:</h6>

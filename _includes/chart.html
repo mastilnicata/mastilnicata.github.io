@@ -373,12 +373,44 @@ c_margin + (c_height /2)
                     //alert(p + "::" + paths[p].img.src)
                     ctx.save();
                     var bg_img_path = new Path2D();
+                    var leftmost_x = 9999, rightmost_x  = -1, topmost_y = 9999, bottommost_y = -1, clip_width = -1, clip_height = -1;
+                    var img_w = paths[p].img.width, img_h = paths[p].img.height;
                     for(var i=0; i < points.length; i++)
                     {
-                        bg_img_path.lineTo(points[i], points[++i]);
+                        pt_x = points[i];
+                        pt_y = points[++i]
+                        bg_img_path.lineTo(pt_x, pt_y);
+
+                        if(pt_x < leftmost_x) leftmost_x = pt_x;
+                        if(pt_x > rightmost_x) rightmost_x = pt_x;
+                        if(pt_y < topmost_y) topmost_y = pt_y;
+                        if(pt_y > bottommost_y) bottommost_y = pt_y;
                     }
+                    clip_width = rightmost_x - leftmost_x;
+                    clip_height = bottommost_y - topmost_y;
                     ctx.clip(bg_img_path);
-                    ctx.drawImage(paths[p].img, points[0] , points[1], c_width + tip_size, c_height + tip_size);
+
+                    /*
+                    //* Conserve aspect ratio of the original region. Useful when shrinking/enlarging
+                    //* images to fit into a certain area.
+                    //*
+                    //* @param {Number} srcWidth width of source image
+                    //* @param {Number} srcHeight height of source image
+                    //* @param {Number} maxWidth maximum available width
+                    //* @param {Number} maxHeight maximum available height
+                    //* @return {Object} { width, height }                    
+                    // source: https://stackoverflow.com/a/14731922
+                    function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+                        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+                        return { width: srcWidth*ratio, height: srcHeight*ratio };
+                    }
+                    */
+                   //changed min to max, to fill the container  with cropped edges, instead of sizing the image as priority (leaving blanks in the container)
+                    var ratio = Math.max(clip_width / img_w, clip_height / img_h);
+                    var resized_width = img_w * ratio, resized_height = img_h * ratio;
+
+                    // TODO: take actual image h x w, and be sure to clip height and width to max keeping aspect ratio
+                    ctx.drawImage(paths[p].img, leftmost_x , topmost_y, resized_width, resized_height);
                     ctx.restore();
                 }
                 //--bg image instead of colour
@@ -438,14 +470,14 @@ c_margin + (c_height /2)
             }
             //else treat the icon as unicode for Font Awesome
             else {
-                ctx.fillStyle = "white"
+                ctx.fillStyle = "#cfcfcf"
                 ctx.font = icon_size + "px 'Font Awesome 6 Free'";
                 //ctx.fillText(paths[p].icon, c_width * p + c_width/2 + tip_size, c_margin + text_margin * 3);
                 ctx.fillText(paths[p].icon, posx - ((p==0)?(icon_size/2):0), posy - text_icon_buff - 2);
             }
 
             //step text
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "#cfcfcf";
             ctx.textAlign = "center";
             ctx.font="bold 18px 'AlegreyaSansRegular', 'sans-serif'";
             ctx.fillText(paths[p].text, 

@@ -95,7 +95,7 @@ body {
 }
 
 .persontitle {
-  color: #d56d40;
+  color: #C4772B;
   font-size: 36px;
 }
 
@@ -257,6 +257,38 @@ body {
   font-style: italic;
 }
 
+
+.service-content.consultation ul,
+.service-content.editing ul {
+  padding: 0;
+  margin: 2em 0;
+  list-style: none;
+}
+
+.service-content.consultation ul li,
+.service-content.editing ul li {
+  margin: 1em;
+  margin-left: 3em;
+}
+
+
+.service-content.consultation ul li::before,
+.service-content.editing ul li::before {
+  font-family: "Font Awesome 6 Free";
+  float: left;
+  margin-left: -1.5em;
+}
+
+
+.service-content.consultation ul li::before {
+  content: "\f098";
+}
+
+.service-content.editing ul li::before {
+  content: "\e19b";
+}
+
+
 /* 
 ---------------------------------------------
 reset
@@ -318,19 +350,25 @@ html, body {
   font-weight: 400;
   /* background-color: #cfcfcf; */
   background-image: url("/assets/images/bg-line.png");
-  font-size: 21px;
+  font-size: 19px;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+a, .highlighted-text {
   text-decoration: none !important;
-  color: #3CF;
+  color: #C4772B;
+  font-weight: bold;
+}
+
+.highlighted-text2 {
+  color: #C4772B;
+  background: #191d1b;
 }
 
 a:hover {
-	color: #FC3;
+	color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -366,17 +404,17 @@ body {
   background-image: url("/assets/images/bg-line.png");
   /*font-family: 'oswald', sans-serif;*/
   font-family: 'AlegreyaSansRegular', sans-serif;
-  font-size: 21px;
+  font-size: 19px;
   color: #cfcfcf;
 }
 
 ::selection {
-  background: #d56d40;
+  background: #C4772B;
   color: #cfcfcf;
 }
 
 ::-moz-selection {
-  background: #d56d40;
+  background: #C4772B;
   color: #cfcfcf;
 }
 
@@ -412,7 +450,7 @@ body {
 }
 
 .active-section-item a {
-  background-color: #d56d40;
+  background-color: #C4772B;
   color: #cfcfcf;
   border-radius: 22px;
 }
@@ -420,7 +458,7 @@ body {
 .main-button-red a {
   font-size: 13px;
   color: #cfcfcf;
-  background-color: #d56d40;
+  background-color: #C4772B;
   padding: 12px 30px;
   display: inline-block;
   border-radius: 22px;
@@ -431,12 +469,13 @@ body {
 
 .main-button-red a:hover {
   opacity: 0.9;
+  color:white;
 }
 
 .main-button-yellow a {
   font-size: 13px;
   color: #cfcfcf;
-  background-color: #d56d40;
+  background-color: #C4772B;
   padding: 12px 30px;
   display: inline-block;
   border-radius: 22px;
@@ -497,12 +536,12 @@ header
 }
 
 .sub-header .right-icons ul li a:hover {
-  color: #d56d40;
+  color: #C4772B;
 }
 
 .sub-header .left-content p em {
    font-style: normal;
-   color: #d56d40;
+   color: #C4772B;
 }
 
 .background-header {
@@ -516,7 +555,7 @@ header
 }
 
 .header-area .main-nav .nav li.active a {
-  color: #d56d40 !important;
+  color: #C4772B !important;
 }
 
 .background-header .main-nav .nav li a:not(.active) {
@@ -528,7 +567,7 @@ header
   color: #1e1e1e!important;
 }
 .header-area .main-nav .nav li a.active {
-  color: #d56d40;
+  color: #C4772B;
 }
 /*
 .background-header .main-nav .nav li:hover a {
@@ -541,7 +580,7 @@ header
 */
 .header-area {
   background-color: rgba(250,250,250,0.15);
-  position: absolute;
+  position: fixed;
   /* top: 40px; */
   left: 0;
   right: 0;
@@ -673,12 +712,12 @@ header
 /*
 .header-area .main-nav .nav li.has-sub:hover a ,
 .header-area .main-nav .nav li.has-sub a.active {
-  color: #d56d40!important;
+  color: #C4772B!important;
 }*/
 /*
 .background-header .main-nav .nav li:hover a,
 .background-header .main-nav .nav li a.active {
-  color: #d56d40!important;
+  color: #C4772B!important;
   opacity: 1;
 }
 */
@@ -744,7 +783,7 @@ header
 
 .header-area .main-nav .nav li.has-sub ul li a:hover {
   background: #cfcfcf;
-  /*color: #d56d40!important;*/
+  /*color: #C4772B!important;*/
   padding-left: 25px;
 }
 
@@ -895,7 +934,7 @@ header
 
 /* color?
 .header-area.header-sticky .nav li a.active {
-  color: #d56d40;
+  color: #C4772B;
 }
 */
 
@@ -916,7 +955,7 @@ header
   /* color?
   .header-area.header-sticky .nav li a:hover,
   .header-area.header-sticky .nav li a.active {
-    color: #d56d40!important;
+    color: #C4772B!important;
     opacity: 1;
   }
   */
@@ -975,7 +1014,7 @@ header
   }
   .header-area .main-nav .nav li a:hover {
     background: #eee !important;
-    color: #d56d40!important;
+    color: #C4772B!important;
   }
   .header-area .main-nav .nav li.has-sub ul.sub-menu {
     position: relative;
@@ -1119,7 +1158,7 @@ banner
 
 .main-banner .caption h2 em {
   font-style: normal;
-  color: #d56d40;
+  color: #C4772B;
   font-weight: 900;
 }
 
@@ -1432,7 +1471,7 @@ section.apply-now .item p {
   transition: transform 200ms ease-in-out;
 }
 .accordion-head.is-open {
-  /*color: #d56d40;*/
+  /*color: #C4772B;*/
   border-bottom: none;
 }
 .accordion-head.is-open .icon {
@@ -1449,6 +1488,11 @@ section.apply-now .item p {
   padding-top: 0;
 }
 
+
+.service-content h3 {
+  font-size: 25px;
+  font-weight: bold;
+}
 
 /* 
 ---------------------------------------------
@@ -1488,7 +1532,7 @@ section.our-courses {
 }
 
 .our-courses .item .down-content .info ul li i {
-  color: #d56d40;
+  color: #C4772B;
   font-size: 14px;
 }
 
@@ -1541,7 +1585,7 @@ section.our-facts h2 {
 
 .count-digit {
     margin: 5px 0px;
-    color: #d56d40;
+    color: #C4772B;
     font-weight: 700;
     font-size: 36px;
 }
@@ -1651,13 +1695,23 @@ section.contact-us #contact button {
 
 section.contact-us #contact button:hover {
   opacity: 0.9;
+  color: white;
 }
 
 section.contact-us .right-info {
-  background-color: #a12c2f;
+  background-color: #C4772B;
   border-radius: 20px;
   padding: 40px;
 }
+section.contact-us .right-info a {
+  color: #cfcfcf;
+  font-weight: normal;
+}
+
+section.contact-us .right-info a:hover {
+  color: white;
+}
+
 @media (max-width: 1400px) {
 	section.contact-us .right-info {
 		padding: 30px;
@@ -1692,7 +1746,7 @@ section.contact-us .right-info ul li:last-child {
 }
 
 section.contact-us .right-info ul li h6 {
-  color: #cfcfcf;
+  color: #404a40;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -1723,7 +1777,7 @@ section.contact-us .right-info ul li span {
 }
 
 .footer a {
-  color: #d56d40;
+  color: #C4772B;
 }
 
 
@@ -1955,7 +2009,7 @@ section.meetings-page .pagination ul li a:hover {
 }
 
 .meeting-single-item .down-content .share ul li a:hover {
-  color: #d56d40;
+  color: #C4772B;
 }
 
 /* Meeting item column */

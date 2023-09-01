@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 
 <head>
   {% include head.html %}
@@ -19,15 +19,25 @@ TODO:
 10. Tonya's page: button should appear only if scrollable, more than the menu height
 -->
 
-<body style="background-image:url('/assets/images/meetings-page-bg.jpg');">
+<body style="background-image:url('/assets/images/meetings-page-bg.jpg'); height: 100%;">
   
   {% include header.html %}
 
+  {% assign numofbooks = page.books-of | size %}
+  {% assign numOfReviews = page.review_links | size %}
+  {% assign numOfInterviews = page.interview_links | size %}
+
+  {% assign show_submenu = true %}
+  {% if numofbooks==0 and numOfReviews==0 and numOfInterviews %}
+  {% assign show_submenu = false %}
+  {% endif %}
+
 <!-- person page: sticky person sub header-->
+{% if show_submenu %}
 <div class="container-fluid subheader" style="z-index: 11000; visibility:hidden;">
   <div class="container" style="position:relative; top: -22px;">
-  <img id="person-subheader-pic" src="/assets/images/people/{{ page.person-pic }}" style="width: auto;z-index: 9000;height: 76px;border-radius: 50%;">
-    <span id="person-subheader-name" style="color:#d56d40;">
+  <img id="person-subheader-pic" src="{{ page.person-pic }}" style="width: auto;z-index: 9000;height: 76px;border-radius: 50%;">
+    <span id="person-subheader-name" style="color:#C4772B;">
       {% if page.firstname %}
           {{ page.firstname }}
       {% endif%}
@@ -38,9 +48,6 @@ TODO:
     <span class="section-item scroll-to-section">
       <a href="#moreabout">Биография</a>
     </span>
-    {% assign numofbooks = page.books-of | size %}
-    {% assign numOfReviews = page.review_links | size %}
-    {% assign numOfInterviews = page.interview_links | size %}
 
     {% if numofbooks > 0 %}
     <span class="section-item scroll-to-section">
@@ -63,16 +70,22 @@ TODO:
   <div class="container" style="padding-left: 105px;">
 </div>
 </div> 
+{% endif %}
 <!-- / person page: sticky person sub header-->
 
-  <section class="heading-page header-text" id="top"
-    style="background: url('{{ page.header-pic }}'), {{ page.header-color }}; background-repeat: no-repeat; height:550px; text-align: left;">
-    <div class="container" style="position: relative; top: -98px;">
+
+  <div style="height: 100%; background: linear-gradient(
+    rgba(39, 43, 40, 0.6), 
+    rgba(39, 43, 40, 0.6)
+  ),url('{{ page.header-pic }}'); background-repeat: no-repeat; background-size: cover;">
+  <section class="header-text" id="top"
+    style="text-align: left; background: none; padding-top: 50px; padding-bottom: 50px;"><!--height:550px; margin-bottom: 50px;-->
+    <div class="container" style="position: relative; padding-top: 143px;"><!--top: -98px;-->
       <div class="row">
         <div class="col-lg-12">
-          <h6>Кои сме</h6>
-          <h2 style="text-transform: none; font-size: 50px;"> <img src="/assets/images/people/{{ page.person-pic }}"
-              style="height: 76px; border-radius: 50%; width: auto;" /> <span class="persontitle">{{ page.firstname }}
+          <h6 style="position: relative; top: -17px; font-weight: bold;">Кои сме</h6>
+          <h2 style="text-transform: none; font-size: 50px;"> <img src="{{ page.person-pic }}"
+              style="height: 76px; border-radius: 50%; width: auto;" /> <span class="persontitle" style="font-weight: bold;">{{ page.firstname }}
               {{ page.lastname }}</span></h2>
         </div>
       </div>
@@ -82,7 +95,7 @@ TODO:
           {{ page.intro }}
         </div>
       </div>
-
+      {% if show_submenu %}
       <div class="row" id="person-nav" style="display:none;">
         <div class="col-12 mt-0 mt-md-4">
           <span>
@@ -125,24 +138,26 @@ TODO:
 
         </div>
       </div>
+      {% endif %}
     </div>
   </section>
 
   <section class="container-fluid jumpt-to-section" id="moreabout">
     <div class="row" style="color: white;">
       <div class="col-lg-8 mx-auto pt-3 pb-3" style="line-height: 1.8;">
-        <strong style="font-size:32px;">{{ page.firstname }} {{ page.lastname }}</strong><span style="margin-left:10px;">е:</span>
+        <!--<strong style="font-size:32px;">{{ page.firstname }} {{ page.lastname }}</strong><span style="margin-left:10px;">е:</span>-->
         {{ content }}
       </div>
     </div>
   </section>
+</div>
 
   {% if numofbooks > 0 %}
-  <section class="container-fluid jumpt-to-section" id="booksof" style="background-color:darkslategray;">
+  <section class="container-fluid jumpt-to-section" id="booksof" style="background-color:darkslategray; margin-top: 100px;">
     <div class="row" style="color: white;">
       <div class="col-lg-8 mx-auto pt-3 pb-3" style="line-height: 1.8; padding-bottom: 65px !important;">
 
-        <p><strong style="font-size:32px;">Книги от {{ page.firstname }} {{ page.lastname }}</strong>:</p>
+        <p><strong style="font-size:32px;">Книги</strong>:</p>
         {% for book in page.books-of %}
           {% assign bookitem = site.books | where: "item-id", book  | first %}
           {% include about-person-book.html book=bookitem %}
