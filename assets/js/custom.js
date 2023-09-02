@@ -121,10 +121,10 @@
 	    });
 	}
 
-	$(window).scroll(function() {
+	$(window).scroll(function(e) {
 
 		var scrollPos = $(document).scrollTop();
-		var scrolled_to_the_bottom = ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight);
+		var scrolled_to_the_bottom = ((window.innerHeight + (window.scrollY/10)) >= document.body.offsetHeight);
 
         if (visible($('.count-digit'))) {
             if ($('.count-digit').hasClass('counter-loaded')) return;
@@ -169,26 +169,26 @@
 
 		//on "about person" page, highlight the correct section
 		navLi.each((li_index) => {
-		var item = $(navLi[li_index]);
-		var href = item.find("a")[0].getAttribute("href");
+			var item = $(navLi[li_index]);
+			var href = item.find("a")[0].getAttribute("href");
 
-		if(href && href.indexOf("#") >= 0)
-			href = href.substring(href.indexOf("#") + 1);
+			if(href && href.indexOf("#") >= 0)
+				href = href.substring(href.indexOf("#") + 1);
 
-			navLi[li_index].classList.remove("active-section-item");
-		if(scrolled_to_the_bottom)
-		{
-			if(li_index == navLi.length -1)
+				navLi[li_index].classList.remove("active-section-item");
+			if(scrolled_to_the_bottom)
 			{
-				navLi[li_index].classList.add("active-section-item");
+				if(li_index == navLi.length -1)
+				{
+					navLi[li_index].classList.add("active-section-item");
+				}
 			}
-		}
-		else
-		{
-			if (current==href) {
-				navLi[li_index].classList.add("active-section-item");
+			else
+			{
+				if (current==href) {
+					navLi[li_index].classList.add("active-section-item");
+				}
 			}
-		}
 		});
 		//---------------------------
 

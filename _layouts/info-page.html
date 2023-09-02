@@ -9,7 +9,7 @@
 <body style="background: linear-gradient(
   rgba(39, 43, 40, 0.6), 
   rgba(39, 43, 40, 0.6)
-),url('{{page.banner_image}}'); background-repeat: no-repeat;  background-size: cover; background-position: center center; background-attachment: fixed;">
+),url('{{page.banner_image}}'); background-repeat: no-repeat;  background-size: cover; background-position: {{ page.bg_pos }} center; background-attachment: {{ page.bg_mode }}"> <!--background-attachment: fixed-->
   
   {% include header.html %}
 
@@ -23,7 +23,7 @@
           <h2 style="text-transform: none; font-size: 50px;">
             {% assign img_str_start = page.page_icon | slice: 0, 8 %}
             {% if img_str_start == "<i class" %}
-              <span style="color: #C4772B;"></i>{{ page.page_icon }}</span>
+              <span style="color: #cfcfcf;"></i>{{ page.page_icon }}</span>
             {% else %}
               <img src="{{page.page_icon}}"
                 style="    height: 55px;

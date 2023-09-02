@@ -7,9 +7,9 @@
 
 
 <body style="background: linear-gradient(
-  rgba(39, 43, 40, 0.6), 
-  rgba(39, 43, 40, 0.6)
-),url('{{page.banner_image}}'); background-repeat: no-repeat;  background-size: cover; background-position: top center; /*background-attachment: fixed;*/">
+  rgba(39, 43, 40, 0.5), 
+  rgba(39, 43, 40, 0.5)
+),url('{{page.banner_image}}'); background-repeat: no-repeat;  background-size: cover; background-position: top center; background-attachment: {{ page.bg_mode }}; color: white;">
   
   {% include header.html %}
   <!--
@@ -36,12 +36,12 @@
             {% endif %}
             {% assign img_str_start = page.page_icon | slice: 0, 8 %}
             {% if img_str_start == "<i class" %}
-              <span style="color:'white'; {{ img_top_style }}"></i>{{ page.page_icon }}</span><!-- #C4772B-->
+              <span style="color:'#cfcfcf'; {{ img_top_style }}"></i>{{ page.page_icon }}</span><!-- #C4772B-->
             {% else %}
               <img src="{{page.page_icon}}"
-                style="height: 55px;
+                style="height: 47px;
                 width: auto;
-                margin-right: 10px; {{ img_top_style }}" />
+                margin-right: 0px; {{ img_top_style }}" />
             {% endif %}
 
               

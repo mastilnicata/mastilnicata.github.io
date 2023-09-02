@@ -28,7 +28,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
-name: СТИЛницата
+name: СТИЛница
 
 #URLs
 contactform_server: https://simple-node-proxy.vercel.app
@@ -62,8 +62,8 @@ collections:
       - hunter.html
       - dancing-with-water.html
       - our-history.html
-      - hagabula.html
       - the-cat.html
+      - hagabula.html
       - viet-tan.html
       - skippy.html
       - stories-with-horse.html
